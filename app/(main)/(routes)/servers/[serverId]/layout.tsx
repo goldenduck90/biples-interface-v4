@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 
 import { ServerSidebar } from "@/components/server/server-sidebar";
 import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
+import prisma from "@/lib/prisma";
 
 const ServerIdLayout = async ({
   children,
@@ -17,7 +17,7 @@ const ServerIdLayout = async ({
     return redirect("/sign-in");
   }
 
-  const server = await db.server.findUnique({
+  const server = await prisma.server.findUnique({
     where: {
       id: params.serverId,
       members: {

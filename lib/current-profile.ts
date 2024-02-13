@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import prisma from "@/lib/prisma";
 import { authOptions } from "./auth";
 import { getServerSession } from "next-auth";
 
@@ -13,7 +13,7 @@ export const currentProfile = async () => {
   //@ts-ignore
   const walletId = session?.user.walletId;
 
-  const profile = await db.profile.findUnique({
+  const profile = await prisma.profile.findUnique({
     where: {
       userId: walletId,
     },

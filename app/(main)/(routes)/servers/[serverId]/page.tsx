@@ -2,7 +2,7 @@
 import { redirect } from "next/navigation";
 
 import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
+import prisma from "@/lib/prisma";
 
 interface ServerIdPageProps {
   params: {
@@ -21,7 +21,7 @@ const ServerIdPage = async ({
     return redirect("/sign-in");
   }
 
-  const server = await db.server.findUnique({
+  const server = await prisma.server.findUnique({
     where: {
       id: params.serverId,
       members: {

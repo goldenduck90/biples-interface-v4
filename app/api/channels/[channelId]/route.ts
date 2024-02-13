@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { MemberRole } from "@prisma/client";
 
 import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
+import prisma from "@/lib/prisma";
 
 export async function DELETE(
   req: Request,
@@ -26,7 +26,7 @@ export async function DELETE(
       return new NextResponse("Channel ID missing", { status: 400 });
     }
 
-    const server = await db.server.update({
+    const server = await prisma.server.update({
       where: {
         id: serverId,
         members: {
@@ -84,7 +84,7 @@ export async function PATCH(
       return new NextResponse("Name cannot be 'general'", { status: 400 });
     }
 
-    const server = await db.server.update({
+    const server = await prisma.server.update({
       where: {
         id: serverId,
         members: {

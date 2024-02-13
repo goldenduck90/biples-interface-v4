@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { NextResponse } from "next/server";
 
 import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
+import prisma from "@/lib/prisma";
 
 export async function PATCH(
   req: Request,
@@ -19,7 +19,7 @@ export async function PATCH(
       return new NextResponse("Server ID Missing", { status: 400 });
     }
 
-    const server = await db.server.update({
+    const server = await prisma.server.update({
       where: {
         id: params.serverId,
         profileId: profile.id,

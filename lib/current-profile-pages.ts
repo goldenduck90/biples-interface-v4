@@ -1,6 +1,6 @@
 import { NextApiRequest } from "next";
 
-import { db } from "@/lib/db";
+import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth";
 
@@ -22,7 +22,7 @@ export const currentProfilePages = async (req: any, res: any) => {
     return null;
   }
 
-  const profile = await db.profile.findUnique({
+  const profile = await prisma.profile.findUnique({
     where: {
       userId: walletId,
     },

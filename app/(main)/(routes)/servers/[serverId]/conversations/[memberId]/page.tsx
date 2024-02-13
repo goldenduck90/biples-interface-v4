@@ -7,7 +7,7 @@ import { ChatMessages } from "@/components/chat/chat-messages";
 import { MediaRoom } from "@/components/media-room";
 import { getOrCreateConversation } from "@/lib/conversation";
 import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
+import prisma from "@/lib/prisma";
 
 interface MemberIdPageProps {
   params: {
@@ -26,7 +26,7 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
     return redirect("/sign-in");
   }
 
-  const currentMember = await db.member.findFirst({
+  const currentMember = await prisma.member.findFirst({
     where: {
       serverId: params.serverId,
       profileId: profile.id,

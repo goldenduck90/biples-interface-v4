@@ -6,7 +6,7 @@ import { ChatInput } from "@/components/chat/chat-input";
 import { ChatMessages } from "@/components/chat/chat-messages";
 import { MediaRoom } from "@/components/media-room";
 import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
+import prisma from "@/lib/prisma";
 import { ServerRightRooms } from "@/components/server/servers-right-rooms";
 import { ServerHeader } from "@/components/server/server-header";
 import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
@@ -29,13 +29,13 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
     return redirect("/sign-in");
   }
 
-  const channel = await db.channel.findUnique({
+  const channel = await prisma.channel.findUnique({
     where: {
       id: params.channelId,
     },
   });
 
-  const member = await db.member.findFirst({
+  const member = await prisma.member.findFirst({
     where: {
       serverId: params.serverId,
       profileId: profile.id,
@@ -164,7 +164,7 @@ const MarketSidebar = async ({ serverId }: ServerSidebarProps) => {
     return redirect("/");
   }
 
-  const server = await db.server.findUnique({
+  const server = await prisma.server.findUnique({
     where: {
       id: serverId,
     },

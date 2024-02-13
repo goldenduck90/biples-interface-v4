@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
+import prisma from "@/lib/prisma";
 
 export async function DELETE(
   req: Request,
@@ -14,7 +14,7 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const server = await db.server.delete({
+    const server = await prisma.server.delete({
       where: {
         id: params.serverId,
         profileId: profile.id,
@@ -40,7 +40,7 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const server = await db.server.update({
+    const server = await prisma.server.update({
       where: {
         id: params.serverId,
         profileId: profile.id,

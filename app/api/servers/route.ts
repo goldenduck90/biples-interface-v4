@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { ChannelType, MemberRole } from "@prisma/client";
 
 import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
+import prisma from "@/lib/prisma";
 
 export async function POST(req: Request) {
   try {
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       return new NextResponse("Name cannot be 'general'", { status: 400 });
     }
 
-    const server = await db.server.create({
+    const server = await prisma.server.create({
       data: {
         profileId: profile.id,
         name,
