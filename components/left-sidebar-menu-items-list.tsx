@@ -11,6 +11,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { ProfileDrawer } from './profil-drawer-server'
+import { cn } from '@/lib/utils'
 
 const LeftSidebarMenuItemsList: React.FC = () => {
   const pathname = usePathname()
@@ -46,22 +47,19 @@ const LeftSidebarMenuItemsList: React.FC = () => {
             style={{ borderRadius: active ? '10px' : '' }}
           >
             {active && (
-              <div className="absolute left-0 h-[40px] w-[5px] rounded-r-lg bg-[#50FFFF]"></div>
+              <div className="absolute left-0 h-[36px] w-[4px] rounded-r-lg bg-[#50FFFF]"></div>
             )}
-            <div>
-              {active ? (
-                <div className="shadow-blue flex h-[36px] w-[36px] items-center justify-center rounded-full bg-[#50FFFF] ">
-                  <item.icon
-                    size="25"
-                    className={`${active ? 'text-black' : 'text-white'}`}
-                  />
-                </div>
-              ) : (
-                <item.icon
-                  size="25"
-                  className={`${active ? 'text-black' : 'text-white'}`}
-                />
+            <div
+              className={cn(
+                'pl-2',
+                active &&
+                  'shadow-blue flex h-[32px] w-[32px] items-center justify-center rounded-full bg-[#50FFFF] pl-0',
               )}
+            >
+              <item.icon
+                size="16"
+                className={`${active ? 'text-black' : 'text-white'}`}
+              />
             </div>
 
             <div>{item.name}</div>

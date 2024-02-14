@@ -9,7 +9,7 @@ const LeftSidebarMenu: React.FC = async () => {
   const profile = await currentProfile()
 
   return (
-    <div className="flex h-full min-w-[255px] max-w-[255px] flex-col rounded-[25px]  border bg-white/5">
+    <div className="flex h-full flex-col rounded-[25px] border bg-white/5 xl:w-[255px]">
       <div className="flex w-full flex-1 flex-col ">
         {profile && <ProfileDrawer />}
 
