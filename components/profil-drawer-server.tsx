@@ -19,7 +19,7 @@ export const ProfileDrawer = async () => {
         <div className="text-lg font-bold">{profile.name}</div>
       </div>
       <div className="flex w-full flex-col items-center justify-center gap-1 rounded-2xl border border-[#283643]  p-2">
-        <div className="3xl:text-sm xl:text-xs">
+        <div className="xl:text-xs 2xl:text-sm">
           Level: <b className="text-[#53ACFF]">1</b>
         </div>
         <div className="w-full rounded-lg bg-white/20">
@@ -28,7 +28,7 @@ export const ProfileDrawer = async () => {
             style={{ width: `${progress}%` }}
           ></div>
         </div>
-        <div className="3xl:test-sm text-center text-[#384E63] xl:text-xs">
+        <div className="text-center text-[#384E63] xl:text-xs 2xl:text-sm">
           XP: 1000/1150 XP
         </div>
       </div>

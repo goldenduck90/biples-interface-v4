@@ -13,16 +13,13 @@ const config: Config = {
       padding: '2rem',
       screens: {
         sm: '640px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1280px',
-        '2xl': '1536px',
+        md: '960px',
+        lg: '1280px',
+        xl: '1600px',
+        '2xl': '1920px',
       },
     },
     extend: {
-      screens: {
-        '3xl': '1920px',
-      },
       colors: {
         border: 'hsl(var(--border))',
         strokeColor: '#283643',
