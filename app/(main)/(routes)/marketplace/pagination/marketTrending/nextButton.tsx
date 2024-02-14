@@ -1,15 +1,14 @@
-interface Props{
-  moveNext: () => void;
-  isDisabled: (string:"next") => any;
-
+interface Props {
+  moveNext: () => void
+  isDisabled: (string: 'next') => any
 }
-export default function NextButton({moveNext,isDisabled}:Props) {
+export default function NextButton({ moveNext, isDisabled }: Props) {
   return (
     <div>
       <button
         type="button"
-        className="px-2 py-1 text-xs font-medium text-center inline-flex items-center text-white "
-        disabled={isDisabled("next")}
+        className="inline-flex items-center px-2 py-1 text-center text-xs font-medium text-white "
+        disabled={isDisabled('next')}
         onClick={moveNext}
       >
         <svg
@@ -23,15 +22,15 @@ export default function NextButton({moveNext,isDisabled}:Props) {
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          {" "}
-          <path stroke="none" d="M0 0h24v24H0z" />{" "}
-          <line x1="5" y1="12" x2="19" y2="12" />{" "}
-          <line x1="13" y1="18" x2="19" y2="12" />{" "}
+          {' '}
+          <path stroke="none" d="M0 0h24v24H0z" />{' '}
+          <line x1="5" y1="12" x2="19" y2="12" />{' '}
+          <line x1="13" y1="18" x2="19" y2="12" />{' '}
           <line x1="13" y1="6" x2="19" y2="12" />
         </svg>
 
         <span className="sr-only">Prev</span>
       </button>
     </div>
-  );
+  )
 }

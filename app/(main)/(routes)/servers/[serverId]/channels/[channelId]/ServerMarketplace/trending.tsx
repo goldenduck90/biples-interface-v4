@@ -1,12 +1,12 @@
-import { marketCards2 } from "./Cards";
-import { MarketCard } from "./market-card";
+import { marketCards2 } from './Cards'
+import { MarketCard } from './market-card'
 
 export default function Trending() {
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between m-[30px]">
+      <div className="m-[30px] flex justify-between">
         <p className="text-[25px]">Trending</p>
-        <a href="#" className="text-[13px] text-center text-[#50FFFF]">
+        <a href="#" className="text-center text-[13px] text-[#50FFFF]">
           See All
         </a>
       </div>
@@ -28,9 +28,9 @@ export default function Trending() {
         {Array(10)
           .fill(0)
           .map((_, i) => (
-            <div className="w-[194px] h-0" key={i} />
+            <div className="h-0 w-[194px]" key={i} />
           ))}
       </div>
     </div>
-  );
+  )
 }

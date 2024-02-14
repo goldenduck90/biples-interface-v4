@@ -1,17 +1,16 @@
-import * as React from "react";
-import { createInteractingObservable } from "@livekit/components-core";
-import { usePagination } from "@livekit/components-react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
+import * as React from 'react'
+import { createInteractingObservable } from '@livekit/components-core'
+import { usePagination } from '@livekit/components-react'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 export interface PaginationControlProps
   extends Pick<
     ReturnType<typeof usePagination>,
-    "totalPageCount" | "nextPage" | "prevPage" | "currentPage"
+    'totalPageCount' | 'nextPage' | 'prevPage' | 'currentPage'
   > {
   /** Reference to an HTML element that holds the pages, while interacting (`mouseover`)
    *  with it, the pagination controls will appear for a while. */
-  pagesContainer?: React.RefObject<HTMLElement>;
+  pagesContainer?: React.RefObject<HTMLElement>
 }
 
 export function CustomPaginationControl({
@@ -21,23 +20,23 @@ export function CustomPaginationControl({
   currentPage,
   pagesContainer: connectedElement,
 }: PaginationControlProps) {
-  const [interactive, setInteractive] = React.useState(false);
+  const [interactive, setInteractive] = React.useState(false)
   React.useEffect(() => {
     let subscription:
-      | ReturnType<ReturnType<typeof createInteractingObservable>["subscribe"]>
-      | undefined;
+      | ReturnType<ReturnType<typeof createInteractingObservable>['subscribe']>
+      | undefined
     if (connectedElement) {
       subscription = createInteractingObservable(
         connectedElement.current,
-        2000
-      ).subscribe(setInteractive);
+        2000,
+      ).subscribe(setInteractive)
     }
     return () => {
       if (subscription) {
-        subscription.unsubscribe();
+        subscription.unsubscribe()
       }
-    };
-  }, [connectedElement]);
+    }
+  }, [connectedElement])
 
   return (
     <div
@@ -52,5 +51,5 @@ export function CustomPaginationControl({
         <FaChevronRight />
       </button>
     </div>
-  );
+  )
 }

@@ -1,34 +1,34 @@
-import type { ChatMessage, ChatOptions } from "@livekit/components-core";
+import type { ChatMessage, ChatOptions } from '@livekit/components-core'
 import {
   ChatEntry,
   MessageFormatter,
   useChat,
   useMaybeLayoutContext,
-} from "@livekit/components-react";
-import * as React from "react";
-import { FiPlusCircle } from "react-icons/fi";
-import { IoSend } from "react-icons/io5";
+} from '@livekit/components-react'
+import * as React from 'react'
+import { FiPlusCircle } from 'react-icons/fi'
+import { IoSend } from 'react-icons/io5'
 
 export function cloneSingleChild(
   children: React.ReactNode | React.ReactNode[],
   props?: Record<string, any>,
-  key?: any
+  key?: any,
 ) {
   return React.Children.map(children, (child) => {
     // Checking isValidElement is the safe way and avoids a typescript
     // error too.
     if (React.isValidElement(child) && React.Children.only(children)) {
-      return React.cloneElement(child, { ...props, key });
+      return React.cloneElement(child, { ...props, key })
     }
-    return child;
-  });
+    return child
+  })
 }
 
 /** @public */
 export interface ChatProps
   extends React.HTMLAttributes<HTMLDivElement>,
     ChatOptions {
-  messageFormatter?: MessageFormatter;
+  messageFormatter?: MessageFormatter
 }
 
 /**
@@ -50,38 +50,38 @@ export function CustomChatLive({
   channelTopic,
   ...props
 }: ChatProps) {
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const ulRef = React.useRef<HTMLUListElement>(null);
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  const ulRef = React.useRef<HTMLUListElement>(null)
 
   const chatOptions: ChatOptions = React.useMemo(() => {
-    return { messageDecoder, messageEncoder, channelTopic };
-  }, [messageDecoder, messageEncoder, channelTopic]);
+    return { messageDecoder, messageEncoder, channelTopic }
+  }, [messageDecoder, messageEncoder, channelTopic])
 
-  const { send, chatMessages, isSending } = useChat(chatOptions);
+  const { send, chatMessages, isSending } = useChat(chatOptions)
 
-  const layoutContext = useMaybeLayoutContext();
-  const lastReadMsgAt = React.useRef<ChatMessage["timestamp"]>(0);
+  const layoutContext = useMaybeLayoutContext()
+  const lastReadMsgAt = React.useRef<ChatMessage['timestamp']>(0)
 
   async function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    if (inputRef.current && inputRef.current.value.trim() !== "") {
+    event.preventDefault()
+    if (inputRef.current && inputRef.current.value.trim() !== '') {
       if (send) {
-        await send(inputRef.current.value);
-        inputRef.current.value = "";
-        inputRef.current.focus();
+        await send(inputRef.current.value)
+        inputRef.current.value = ''
+        inputRef.current.focus()
       }
     }
   }
 
   React.useEffect(() => {
     if (ulRef) {
-      ulRef.current?.scrollTo({ top: ulRef.current.scrollHeight });
+      ulRef.current?.scrollTo({ top: ulRef.current.scrollHeight })
     }
-  }, [ulRef, chatMessages]);
+  }, [ulRef, chatMessages])
 
   React.useEffect(() => {
     if (!layoutContext || chatMessages.length === 0) {
-      return;
+      return
     }
 
     if (
@@ -89,22 +89,22 @@ export function CustomChatLive({
       chatMessages.length > 0 &&
       lastReadMsgAt.current !== chatMessages[chatMessages.length - 1]?.timestamp
     ) {
-      lastReadMsgAt.current = chatMessages[chatMessages.length - 1]?.timestamp;
-      return;
+      lastReadMsgAt.current = chatMessages[chatMessages.length - 1]?.timestamp
+      return
     }
 
     const unreadMessageCount = chatMessages.filter(
-      (msg) => !lastReadMsgAt.current || msg.timestamp > lastReadMsgAt.current
-    ).length;
+      (msg) => !lastReadMsgAt.current || msg.timestamp > lastReadMsgAt.current,
+    ).length
 
-    const { widget } = layoutContext;
+    const { widget } = layoutContext
     if (
       unreadMessageCount > 0 &&
       widget.state?.unreadMessages !== unreadMessageCount
     ) {
-      widget.dispatch?.({ msg: "unread_msg", count: unreadMessageCount });
+      widget.dispatch?.({ msg: 'unread_msg', count: unreadMessageCount })
     }
-  }, [chatMessages, layoutContext?.widget]);
+  }, [chatMessages, layoutContext?.widget])
 
   return (
     <div {...props} className="lk-chat">
@@ -115,13 +115,13 @@ export function CustomChatLive({
                 entry: msg,
                 key: idx,
                 messageFormatter,
-              })
+              }),
             )
           : chatMessages.map((msg, idx, allMsg) => {
-              const hideName = idx >= 1 && allMsg[idx - 1].from === msg.from;
+              const hideName = idx >= 1 && allMsg[idx - 1].from === msg.from
               // If the time delta between two messages is bigger than 60s show timestamp.
               const hideTimestamp =
-                idx >= 1 && msg.timestamp - allMsg[idx - 1].timestamp < 60_000;
+                idx >= 1 && msg.timestamp - allMsg[idx - 1].timestamp < 60_000
 
               return (
                 <ChatEntry
@@ -131,12 +131,12 @@ export function CustomChatLive({
                   entry={msg}
                   messageFormatter={messageFormatter}
                 />
-              );
+              )
             })}
       </ul>
       <form className="relative w-full p-4" onSubmit={handleSubmit}>
         <input
-          className="py-3 w-full px-4 relative rounded-xl outline-none focus:outline-none bg-transparent border-2 border-[#283643]  focus-visible:ring-0 focus-visible:ring-offset-0 text-white placeholder:text-white/20"
+          className="relative w-full rounded-xl border-2 border-[#283643] bg-transparent px-4 py-3 text-white outline-none  placeholder:text-white/20 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
           disabled={isSending}
           ref={inputRef}
           type="text"
@@ -146,7 +146,7 @@ export function CustomChatLive({
           <>
             <button
               disabled={isSending}
-              className="absolute opacity-70 animate-pulse transition delay-75 cursor-pointer right-8 top-[28px] hover:opacity-80 "
+              className="absolute right-8 top-[28px] animate-pulse cursor-pointer opacity-70 transition delay-75 hover:opacity-80 "
             >
               <IoSend size="24" />
             </button>
@@ -156,7 +156,7 @@ export function CustomChatLive({
             <button
               type="submit"
               disabled={isSending}
-              className="absolute transition delay-75 cursor-pointer right-8 top-[28px] hover:opacity-80 "
+              className="absolute right-8 top-[28px] cursor-pointer transition delay-75 hover:opacity-80 "
             >
               <IoSend size="24" />
             </button>
@@ -164,5 +164,5 @@ export function CustomChatLive({
         )}
       </form>
     </div>
-  );
+  )
 }

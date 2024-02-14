@@ -1,26 +1,23 @@
+import { redirect } from 'next/navigation'
 
-import { redirect } from "next/navigation";
-
-import prisma from "@/lib/prisma";
-import { currentProfile } from "@/lib/current-profile";
+import prisma from '@/lib/prisma'
+import { currentProfile } from '@/lib/current-profile'
 
 interface InviteCodePageProps {
   params: {
-    inviteCode: string;
-  };
-};
+    inviteCode: string
+  }
+}
 
-const InviteCodePage = async ({
-  params
-}: InviteCodePageProps) => {
-  const profile = await currentProfile();
+const InviteCodePage = async ({ params }: InviteCodePageProps) => {
+  const profile = await currentProfile()
 
   if (!profile) {
-    return redirect("/sign-in");
+    return redirect('/sign-in')
   }
 
   if (!params.inviteCode) {
-    return redirect("/");
+    return redirect('/')
   }
 
   const existingServer = await prisma.server.findFirst({
@@ -28,14 +25,14 @@ const InviteCodePage = async ({
       inviteCode: params.inviteCode,
       members: {
         some: {
-          profileId: profile.id
-        }
-      }
-    }
-  });
+          profileId: profile.id,
+        },
+      },
+    },
+  })
 
   if (existingServer) {
-    return redirect(`/servers/${existingServer.id}`);
+    return redirect(`/servers/${existingServer.id}`)
   }
 
   const server = await prisma.server.update({
@@ -47,17 +44,17 @@ const InviteCodePage = async ({
         create: [
           {
             profileId: profile.id,
-          }
-        ]
-      }
-    }
-  });
+          },
+        ],
+      },
+    },
+  })
 
   if (server) {
-    return redirect(`/servers/${server.id}`);
+    return redirect(`/servers/${server.id}`)
   }
-  
-  return null;
+
+  return null
 }
- 
-export default InviteCodePage;
+
+export default InviteCodePage

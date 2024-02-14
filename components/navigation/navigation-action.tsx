@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import { DoorOpen, PenSquare, Plus } from "lucide-react";
+import { DoorOpen, PenSquare, Plus } from 'lucide-react'
 
-import { ActionTooltip } from "@/components/action-tooltip";
+import { ActionTooltip } from '@/components/action-tooltip'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,27 +11,27 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useModal } from "@/hooks/use-modal-store";
-import { Icon } from "@iconify/react";
+} from '@/components/ui/dropdown-menu'
+import { useModal } from '@/hooks/use-modal-store'
+import { Icon } from '@iconify/react'
 export const NavigationAction = () => {
-  const { onOpen } = useModal();
+  const { onOpen } = useModal()
 
   return (
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger
           asChild
-          className="flex group mr-3 h-[48px] w-fit hover:text-[#50FFFF] text-[#50FFFF]/40 cursor-pointer rounded-[16px] transition-all overflow-hidden items-center justify-center bg-trasparent border border-[#50FFFF]/40  hover:border-[#50FFFF]/80 "
+          className="bg-trasparent group mr-3 flex h-[48px] w-fit cursor-pointer items-center justify-center overflow-hidden rounded-[16px] border border-[#50FFFF]/40 text-[#50FFFF]/40 transition-all hover:border-[#50FFFF]/80  hover:text-[#50FFFF] "
         >
-          <Plus className=" transition-all  p-2.5" />
+          <Plus className=" p-2.5  transition-all" />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-52 border-0 rounded-[14px] bg-black/60 backdrop-blur-md">
+        <DropdownMenuContent className="w-52 rounded-[14px] border-0 bg-black/60 backdrop-blur-md">
           <DropdownMenuItem
-            onClick={() => onOpen("createServer")}
-            className="cursor-pointer flex items-center rounded-[10px] pl-[20px] gap-2.5 font-medium relative py-[14px] hover:bg-transparent group"
+            onClick={() => onOpen('createServer')}
+            className="group relative flex cursor-pointer items-center gap-2.5 rounded-[10px] py-[14px] pl-[20px] font-medium hover:bg-transparent"
           >
-            <div className="absolute left-0 rounded-r-full bg-[#50FFFF] transition-all h-5 w-0 group-hover:w-[0.2rem]" />
+            <div className="absolute left-0 h-5 w-0 rounded-r-full bg-[#50FFFF] transition-all group-hover:w-[0.2rem]" />
 
             <Icon
               icon="solar:pen-new-square-bold-duotone"
@@ -40,10 +40,10 @@ export const NavigationAction = () => {
             <p className="text-xs font-normal">Create a Community</p>
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => onOpen("createServer")}
-            className="cursor-pointer flex items-center rounded-[10px] pl-[20px] gap-2.5 font-medium relative py-[14px] hover:bg-transparent group"
+            onClick={() => onOpen('createServer')}
+            className="group relative flex cursor-pointer items-center gap-2.5 rounded-[10px] py-[14px] pl-[20px] font-medium hover:bg-transparent"
           >
-            <div className="absolute left-0 rounded-r-full bg-[#50FFFF] transition-all h-5 w-0 group-hover:w-[0.2rem]" />
+            <div className="absolute left-0 h-5 w-0 rounded-r-full bg-[#50FFFF] transition-all group-hover:w-[0.2rem]" />
             <Icon
               icon="solar:login-2-bold-duotone"
               className="h-4 w-4 group-hover:text-[#50FFFF]"
@@ -54,5 +54,5 @@ export const NavigationAction = () => {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
-};
+  )
+}

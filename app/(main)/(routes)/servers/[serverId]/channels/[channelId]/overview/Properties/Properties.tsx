@@ -1,4 +1,4 @@
-import properties from "./dataPropertes.json";
+import properties from './dataPropertes.json'
 
 export default function Properties() {
   return (
@@ -6,18 +6,18 @@ export default function Properties() {
       {properties.map((resource, index) => (
         <div
           key={index}
-          className="flex bg-[#101010F7] opacity-95 items-center justify-around p-5 border rounded-[15px] my-3"
+          className="my-3 flex items-center justify-around rounded-[15px] border bg-[#101010F7] p-5 opacity-95"
         >
-          <div className="w-1/4 font-mono font-thin text-white text-[18px]">
+          <div className="w-1/4 font-mono text-[18px] font-thin text-white">
             {resource.section}
           </div>
-          <div className="w-1/4 font-mono font-thin text-center text-white text-[18px]">
+          <div className="w-1/4 text-center font-mono text-[18px] font-thin text-white">
             {resource.color}
           </div>
-          <div className="w-1/4 flex justify-end">
+          <div className="flex w-1/4 justify-end">
             <button
               type="button"
-              className="items-center text-cyan-400 bg-cyan-950 hover:bg-gradient-to-br focus:bg-cyan-400 focus:text-black  focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800  font-medium rounded-[15px] h-[30px] w-[60px] text-sm  text-center focus:bg-gradient-to-br focus:from-green-400 focus:to-blue-600 text-[18px]"
+              className="h-[30px] w-[60px] items-center rounded-[15px] bg-cyan-950 text-center  text-[18px] text-sm font-medium  text-cyan-400 hover:bg-gradient-to-br focus:bg-cyan-400 focus:bg-gradient-to-br focus:from-green-400  focus:to-blue-600 focus:text-black focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800"
             >
               {resource.percent}
             </button>
@@ -25,5 +25,5 @@ export default function Properties() {
         </div>
       ))}
     </div>
-  );
+  )
 }

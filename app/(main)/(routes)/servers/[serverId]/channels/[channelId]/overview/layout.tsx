@@ -1,23 +1,23 @@
-import { redirect, useRouter } from "next/navigation";
+import { redirect, useRouter } from 'next/navigation'
 
-import { ServerSidebar } from "@/components/server/server-sidebar";
-import { currentProfile } from "@/lib/current-profile";
-import prisma from "@/lib/prisma";
-import dynamic from "next/dynamic";
-import { NavigationMarketSidebar } from "@/components/navigation/navigation-sidebar-market";
-import { BackBtn } from "./Backbtn";
+import { ServerSidebar } from '@/components/server/server-sidebar'
+import { currentProfile } from '@/lib/current-profile'
+import prisma from '@/lib/prisma'
+import dynamic from 'next/dynamic'
+import { NavigationMarketSidebar } from '@/components/navigation/navigation-sidebar-market'
+import { BackBtn } from './Backbtn'
 
 const ServerIdLayout = async ({
   children,
   params,
 }: {
-  children: React.ReactNode;
-  params: { serverId: string };
+  children: React.ReactNode
+  params: { serverId: string }
 }) => {
-  const profile = await currentProfile();
+  const profile = await currentProfile()
 
   if (!profile) {
-    return redirect("/sign-in");
+    return redirect('/sign-in')
   }
 
   const server = await prisma.server.findUnique({
@@ -29,31 +29,31 @@ const ServerIdLayout = async ({
         },
       },
     },
-  });
+  })
 
   if (!server) {
-    return redirect("/");
+    return redirect('/')
   }
 
   const DynamicComponentWithNoSSR = dynamic(
-    () => import("@/components/top-header-wallet-icons"),
-    { ssr: false }
-  );
+    () => import('@/components/top-header-wallet-icons'),
+    { ssr: false },
+  )
 
   return (
-    <div className="flex flex-col h-full rounded-[25px] w-full mx-auto bg-[#111214] gap-5">
-      <div className="flex gap-3 justify-between items-center">
+    <div className="mx-auto flex h-full w-full flex-col gap-5 rounded-[25px] bg-[#111214]">
+      <div className="flex items-center justify-between gap-3">
         <BackBtn />
         <div className="w-full">
           <DynamicComponentWithNoSSR />
         </div>
       </div>
-      <div className="bg-white/5 border rounded-[25px] border-[#283643] flex h-fit w-full z-30 flex-col mb-5">
+      <div className="z-30 mb-5 flex h-fit w-full flex-col rounded-[25px] border border-[#283643] bg-white/5">
         <NavigationMarketSidebar />
       </div>
       <main className="h-full rounded-[25px]">{children}</main>
     </div>
-  );
-};
+  )
+}
 
-export default ServerIdLayout;
+export default ServerIdLayout

@@ -1,10 +1,10 @@
-import Image from "next/image";
+import Image from 'next/image'
 
 interface CommunityCardProps {
-  imageURL: string;
-  followers: number;
-  avatar: string;
-  userName: string;
+  imageURL: string
+  followers: number
+  avatar: string
+  userName: string
 }
 
 export const MarketCard = ({
@@ -14,7 +14,7 @@ export const MarketCard = ({
   userName,
 }: CommunityCardProps) => {
   return (
-    <div className="relative w-[200px] h-[200px]">
+    <div className="relative h-[200px] w-[200px]">
       <Image
         src={imageURL}
         alt=""
@@ -23,8 +23,8 @@ export const MarketCard = ({
         className="absolute"
       />
 
-      <div className="flex flex-row justify-between absolute bottom-1 w-full">
-        <div className="flex flex-row gap-2 ml-4">
+      <div className="absolute bottom-1 flex w-full flex-row justify-between">
+        <div className="ml-4 flex flex-row gap-2">
           <Image src={avatar} alt="" width={26} height={26} />
           {userName}
         </div>
@@ -38,5 +38,5 @@ export const MarketCard = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

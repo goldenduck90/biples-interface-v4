@@ -1,21 +1,21 @@
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation'
 
-import { ModeToggle } from "@/components/mode-toggle";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import { currentProfile } from "@/lib/current-profile";
-import prisma from "@/lib/prisma";
-import { IoSearch } from "react-icons/io5";
-import { NavigationAction } from "./navigation-action";
-import { NavigationItem } from "./navigation-item";
-import { useWallet } from "@solana/wallet-adapter-react";
-import { MdArrowForward } from "react-icons/md";
+import { ModeToggle } from '@/components/mode-toggle'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Separator } from '@/components/ui/separator'
+import { currentProfile } from '@/lib/current-profile'
+import prisma from '@/lib/prisma'
+import { IoSearch } from 'react-icons/io5'
+import { NavigationAction } from './navigation-action'
+import { NavigationItem } from './navigation-item'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { MdArrowForward } from 'react-icons/md'
 
 export const NavigationSidebar = async () => {
-  const profile = await currentProfile();
+  const profile = await currentProfile()
 
   if (!profile) {
-    return redirect("/");
+    return redirect('/')
   }
 
   const servers = await prisma.server.findMany({
@@ -26,12 +26,12 @@ export const NavigationSidebar = async () => {
         },
       },
     },
-  });
+  })
 
   return (
-    <div className="flex items-center w-full h-full p-3 text-primary">
+    <div className="flex h-full w-full items-center p-3 text-primary">
       <NavigationAction />
-      <ScrollArea className="flex flex-1 w-full">
+      <ScrollArea className="flex w-full flex-1">
         <div className="flex items-center gap-2.5">
           {servers.map((server) => (
             <div key={server.id}>
@@ -44,9 +44,9 @@ export const NavigationSidebar = async () => {
           ))}
         </div>
       </ScrollArea>
-      <div className="w-12 h-12 border rounded-xl border-[#4effff72] transition-all delay-100 cursor-pointer hover:opacity-80 hover:border-cyan-700 flex items-center justify-center">
-        <MdArrowForward color='#4effff72' />
+      <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl border border-[#4effff72] transition-all delay-100 hover:border-cyan-700 hover:opacity-80">
+        <MdArrowForward color="#4effff72" />
       </div>
     </div>
-  );
-};
+  )
+}

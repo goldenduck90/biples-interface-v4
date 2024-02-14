@@ -3,16 +3,16 @@ import type {
   MessageEncoder,
   TrackReferenceOrPlaceholder,
   WidgetState,
-} from "@livekit/components-core";
+} from '@livekit/components-core'
 import {
   isEqualTrackRef,
   isTrackReference,
   isWeb,
   log,
-} from "@livekit/components-core";
-import { RoomEvent, Track } from "livekit-client";
-import * as React from "react";
-import { IoClose } from "react-icons/io5";
+} from '@livekit/components-core'
+import { RoomEvent, Track } from 'livekit-client'
+import * as React from 'react'
+import { IoClose } from 'react-icons/io5'
 
 import {
   Chat,
@@ -22,7 +22,7 @@ import {
   useCreateLayoutContext,
   usePinnedTracks,
   useTracks,
-} from "@livekit/components-react";
+} from '@livekit/components-react'
 
 import {
   CarouselLayout,
@@ -33,20 +33,20 @@ import {
   LayoutContextProvider,
   ParticipantTile,
   RoomAudioRenderer,
-} from "@livekit/components-react";
-import { CustomControlBar } from "./custom-controll-bar";
-import { CustomGridLayout } from "./custom-grid-layout";
-import { CustomParticipantTile } from "./custom-participant-tile";
-import { CustomChatLive } from "./custom-live-chat";
+} from '@livekit/components-react'
+import { CustomControlBar } from './custom-controll-bar'
+import { CustomGridLayout } from './custom-grid-layout'
+import { CustomParticipantTile } from './custom-participant-tile'
+import { CustomChatLive } from './custom-live-chat'
 
 /**
  * @public
  */
 export interface VideoConferenceProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  chatMessageFormatter?: MessageFormatter;
-  chatMessageEncoder?: MessageEncoder;
-  chatMessageDecoder?: MessageDecoder;
+  chatMessageFormatter?: MessageFormatter
+  chatMessageEncoder?: MessageEncoder
+  chatMessageDecoder?: MessageDecoder
 }
 
 /**
@@ -76,33 +76,33 @@ export function CustomVideoConference({
   const [widgetState, setWidgetState] = React.useState<WidgetState>({
     showChat: false,
     unreadMessages: 0,
-  });
+  })
   const lastAutoFocusedScreenShareTrack =
-    React.useRef<TrackReferenceOrPlaceholder | null>(null);
+    React.useRef<TrackReferenceOrPlaceholder | null>(null)
 
   const tracks = useTracks(
     [
       { source: Track.Source.Camera, withPlaceholder: true },
       { source: Track.Source.ScreenShare, withPlaceholder: false },
     ],
-    { updateOnlyOn: [RoomEvent.ActiveSpeakersChanged], onlySubscribed: false }
-  );
+    { updateOnlyOn: [RoomEvent.ActiveSpeakersChanged], onlySubscribed: false },
+  )
 
   const widgetUpdate = (state: WidgetState) => {
-    log.debug("updating widget state", state);
-    setWidgetState(state);
-  };
+    log.debug('updating widget state', state)
+    setWidgetState(state)
+  }
 
-  const layoutContext = useCreateLayoutContext();
+  const layoutContext = useCreateLayoutContext()
 
   const screenShareTracks = tracks
     .filter(isTrackReference)
-    .filter((track) => track.publication.source === Track.Source.ScreenShare);
+    .filter((track) => track.publication.source === Track.Source.ScreenShare)
 
-  const focusTrack = usePinnedTracks(layoutContext)?.[0];
+  const focusTrack = usePinnedTracks(layoutContext)?.[0]
   const carouselTracks = tracks.filter(
-    (track) => !isEqualTrackRef(track, focusTrack)
-  );
+    (track) => !isEqualTrackRef(track, focusTrack),
+  )
 
   React.useEffect(() => {
     // If screen share tracks are published, and no pin is set explicitly, auto set the screen share.
@@ -110,34 +110,34 @@ export function CustomVideoConference({
       screenShareTracks.some((track) => track.publication.isSubscribed) &&
       lastAutoFocusedScreenShareTrack.current === null
     ) {
-      log.debug("Auto set screen share focus:", {
+      log.debug('Auto set screen share focus:', {
         newScreenShareTrack: screenShareTracks[0],
-      });
+      })
       layoutContext.pin.dispatch?.({
-        msg: "set_pin",
+        msg: 'set_pin',
         trackReference: screenShareTracks[0],
-      });
-      lastAutoFocusedScreenShareTrack.current = screenShareTracks[0];
+      })
+      lastAutoFocusedScreenShareTrack.current = screenShareTracks[0]
     } else if (
       lastAutoFocusedScreenShareTrack.current &&
       !screenShareTracks.some(
         (track) =>
           track.publication.trackSid ===
-          lastAutoFocusedScreenShareTrack.current?.publication?.trackSid
+          lastAutoFocusedScreenShareTrack.current?.publication?.trackSid,
       )
     ) {
-      log.debug("Auto clearing screen share focus.");
-      layoutContext.pin.dispatch?.({ msg: "clear_pin" });
-      lastAutoFocusedScreenShareTrack.current = null;
+      log.debug('Auto clearing screen share focus.')
+      layoutContext.pin.dispatch?.({ msg: 'clear_pin' })
+      lastAutoFocusedScreenShareTrack.current = null
     }
   }, [
     screenShareTracks
       .map(
-        (ref) => `${ref.publication.trackSid}_${ref.publication.isSubscribed}`
+        (ref) => `${ref.publication.trackSid}_${ref.publication.isSubscribed}`,
       )
       .join(),
     focusTrack?.publication?.trackSid,
-  ]);
+  ])
 
   return (
     <div className="lk-video-conference" {...props}>
@@ -148,25 +148,23 @@ export function CustomVideoConference({
           onWidgetChange={widgetUpdate}
         >
           <CustomChatLive
-            style={{ display: "grid" }}
+            style={{ display: 'grid' }}
             messageFormatter={chatMessageFormatter}
             messageEncoder={chatMessageEncoder}
             messageDecoder={chatMessageDecoder}
           />
           <div className="lk-video-conference-inner">
             {!focusTrack ? (
-              <div className="pt-3 lk-grid-layout-wrapper max-h-[450px] overflow-y-scroll px-3">
-                <div className="flex items-center justify-between w-full py-2">
-                  <div className="w-[42px] p-2 bg-white/5 rounded-full "></div>
-                  <div className="text-sm font-semibold">
-                    Title here
-                  </div>
+              <div className="lk-grid-layout-wrapper max-h-[450px] overflow-y-scroll px-3 pt-3">
+                <div className="flex w-full items-center justify-between py-2">
+                  <div className="w-[42px] rounded-full bg-white/5 p-2 "></div>
+                  <div className="text-sm font-semibold">Title here</div>
                   <div>
                     <IoClose />
                   </div>
                 </div>
 
-                <div className="w-full py-2 rounded-lg bg-white/5">
+                <div className="w-full rounded-lg bg-white/5 py-2">
                   <CustomGridLayout tracks={tracks}>
                     <CustomParticipantTile />
                   </CustomGridLayout>
@@ -190,8 +188,8 @@ export function CustomVideoConference({
       <RoomAudioRenderer />
       <ConnectionStateToast />
     </div>
-  );
+  )
 }
 function useWarnAboutMissingStyles() {
-  throw new Error("Function not implemented.");
+  throw new Error('Function not implemented.')
 }

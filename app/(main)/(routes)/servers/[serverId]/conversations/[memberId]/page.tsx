@@ -1,29 +1,28 @@
+import { redirect } from 'next/navigation'
 
-import { redirect } from "next/navigation";
-
-import { ChatHeader } from "@/components/chat/chat-header";
-import { ChatInput } from "@/components/chat/chat-input";
-import { ChatMessages } from "@/components/chat/chat-messages";
-import { MediaRoom } from "@/components/media-room";
-import { getOrCreateConversation } from "@/lib/conversation";
-import { currentProfile } from "@/lib/current-profile";
-import prisma from "@/lib/prisma";
+import { ChatHeader } from '@/components/chat/chat-header'
+import { ChatInput } from '@/components/chat/chat-input'
+import { ChatMessages } from '@/components/chat/chat-messages'
+import { MediaRoom } from '@/components/media-room'
+import { getOrCreateConversation } from '@/lib/conversation'
+import { currentProfile } from '@/lib/current-profile'
+import prisma from '@/lib/prisma'
 
 interface MemberIdPageProps {
   params: {
-    memberId: string;
-    serverId: string;
-  };
+    memberId: string
+    serverId: string
+  }
   searchParams: {
-    video?: boolean;
-  };
+    video?: boolean
+  }
 }
 
 const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
-  const profile = await currentProfile();
+  const profile = await currentProfile()
 
   if (!profile) {
-    return redirect("/sign-in");
+    return redirect('/sign-in')
   }
 
   const currentMember = await prisma.member.findFirst({
@@ -34,28 +33,27 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
     include: {
       profile: true,
     },
-  });
+  })
 
   if (!currentMember) {
-    return redirect("/");
+    return redirect('/')
   }
 
   const conversation = await getOrCreateConversation(
     currentMember.id,
-    params.memberId
-  );
+    params.memberId,
+  )
 
   if (!conversation) {
-    return redirect(`/servers/${params.serverId}`);
+    return redirect(`/servers/${params.serverId}`)
   }
 
-  const { memberOne, memberTwo } = conversation;
+  const { memberOne, memberTwo } = conversation
 
-  const otherMember =
-    memberOne.profileId === profile.id ? memberTwo : memberOne;
+  const otherMember = memberOne.profileId === profile.id ? memberTwo : memberOne
 
   return (
-    <div className="bg-white dark:dark:bg-white/5 flex flex-col h-full rounded-[25px]">
+    <div className="flex h-full flex-col rounded-[25px] bg-white dark:dark:bg-white/5">
       <ChatHeader
         imageUrl={otherMember.profile.imageUrl}
         name={otherMember.profile.name}
@@ -79,7 +77,8 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
             socketQuery={{
               conversationId: conversation.id,
             }}
-          />adsfdasfdasfdafdas
+          />
+          adsfdasfdasfdafdas
           <ChatInput
             name={otherMember.profile.name}
             type="conversation"
@@ -91,7 +90,7 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default MemberIdPage;
+export default MemberIdPage

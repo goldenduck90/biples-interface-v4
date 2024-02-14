@@ -1,120 +1,119 @@
-
-export default function Profile(){
-  return(
-    <div className="sm:w-full lg:flex lg:flex-row lg:mt-5">
-        <div className="lg:w-1/2 rounded-[25px] ">
+export default function Profile() {
+  return (
+    <div className="sm:w-full lg:mt-5 lg:flex lg:flex-row">
+      <div className="rounded-[25px] lg:w-1/2 ">
+        <img
+          src="/images/market/community.png"
+          className="mx-auto h-[465px] w-full xl:w-[600px]"
+        />
+      </div>
+      <div className="mt-5 px-9 lg:w-1/2">
+        {/* name */}
+        <div className="flex w-full flex-row items-center">
           <img
-            src="/images/market/community.png"
-            className="w-full h-[465px] xl:w-[600px] mx-auto"
-          />
-        </div>
-        <div className="lg:w-1/2 mt-5 px-9">
-          {/* name */}
-          <div className="flex flex-row items-center w-full">
-            <img
-              src="/images/market/TopRight.png"
-              className="lg:w-6 xl:w-8"
-            ></img>
+            src="/images/market/TopRight.png"
+            className="lg:w-6 xl:w-8"
+          ></img>
 
-            <div className="ml-1">
-              <div className="w-3/4 font-mono font-thin text-white text-[100%] ">
-                Claynopsaurz
-              </div>
-              <div className="pt-1 w-3/4 font-mono font-thin text-[#6D6D6D] text-[70%] ">
-                @Claynopsaurz
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-row w-full items-center">
-            <div className="w-1/2 font-sans font-thin text-white pt-5 text-[250%] lg:text-[180%] xl:text-[250%] ">
+          <div className="ml-1">
+            <div className="w-3/4 font-mono text-[100%] font-thin text-white ">
               Claynopsaurz
             </div>
-            <div className="bg-zinc-900 rounded-[15px] w-1/5 h-[30px] items-center ml-10 mt-8">
-              <div className="w-full font-sans font-thin text-white text-center text-[100%] ">
-                #2341
-              </div>
+            <div className="w-3/4 pt-1 font-mono text-[70%] font-thin text-[#6D6D6D] ">
+              @Claynopsaurz
             </div>
-          </div>
-          <hr className="mt-2 pt-0.5 w-full dark:bg-cyan-950" />
-
-          {/* owner */}
-          <div className="flex flex-row mt-4 lg:flex lg:flex-col xl:flex xl:flex-row w-full items-center">
-            <div className="flex flex-row items-center w-full gap-1">
-              <img
-                src="/images/market/TopRight.png"
-                className="w-8 h-8 mt-0.5 border-none  rounded-[20px]"
-              />
-              <div className="flex flex-col">
-                <p className="pt-1 w-full font-mono font-thin text-[#6D6D6D] text-[80%] ">
-                  Owner
-                </p>
-                <p className="w-full font-mono font-thin text-white text-[100%] ">
-                  Andrew Jackson
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-row items-center w-full gap-1">
-              <img
-                src="/images/market/Avatar.svg"
-                className="w-8 h-8 mt-0.5 border-none rounded-[25px] "
-              />
-              <div className="flex flex-col">
-                <p className="pt-1 w-full font-mono font-thin text-[#6D6D6D] text-[80%] ">
-                  Owner
-                </p>
-                <p className="w-full font-mono font-thin text-white text-[100%] ">
-                  Andrew Jackson
-                </p>
-              </div>
-            </div>
-          </div>
-          {/* price */}
-          <div className="bg-zinc-900 mt-5 rounded-[15px] w-full p-10">
-            <div className="pt-1 w-3/4 font-mono font-thin text-[#6D6D6D] text-[100%] ">
-              Price
-            </div>
-
-            <div className="flex flex:row lg:flex lg:flex-col xl:flex xl:flex-row w-full font-mono font-thin m-5 items-center">
-              <div className="flex flex-row w-1/2 items-center">
-                <img
-                  className="w-[35px] h-[35px] mb-1"
-                  src="/images/market/Mark.svg"
-                />
-                <div className="w-1/4 ml-3 font-thin text-white text-[170%] ">
-                  225.31
-                </div>
-              </div>
-              <div className="w-1/2 flex flex-row-reverse items-center">
-                <div className="w-1/5 font-mono font-thin text-[#6D6D6D] text-[100%] ">
-                  155
-                </div>
-                <img
-                  className="w-4 h-4 border rounded-[10px]"
-                  src="/images/market/Mark-gr.svg"
-                  alt="Mark"
-                />
-                <div className="pr-1 w-3/4 font-mono font-thin text-right text-[#6D6D6D] text-[100%] ">
-                  Floor price
-                </div>
-              </div>
-            </div>
-          </div>
-        {/* button */}
-          <div className="flex flex-row w-full justify-between xl:justify-around items-center mt-5">
-            <button className="w-4/5 xl:[430px] h-[50px] text-black bg-gradient-to-r bg-cyan-400 items-center hover:bg-blue-500 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-[30px] text-center rounded-[20px]">
-              Buy now
-            </button>
-            <button type="button">
-              <img
-                className="w-[55px] h-[55px] p-[10px] border border-none rounded-[17px] bg-[#ffffff] bg-opacity-5 border-0 hover:bg-blue-700 hover:text-white text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500"
-                src="/images/market/hammer-wh.svg"
-                alt="Mark"
-              />
-            </button>
           </div>
         </div>
+
+        <div className="flex w-full flex-row items-center">
+          <div className="w-1/2 pt-5 font-sans text-[250%] font-thin text-white lg:text-[180%] xl:text-[250%] ">
+            Claynopsaurz
+          </div>
+          <div className="ml-10 mt-8 h-[30px] w-1/5 items-center rounded-[15px] bg-zinc-900">
+            <div className="w-full text-center font-sans text-[100%] font-thin text-white ">
+              #2341
+            </div>
+          </div>
+        </div>
+        <hr className="mt-2 w-full pt-0.5 dark:bg-cyan-950" />
+
+        {/* owner */}
+        <div className="mt-4 flex w-full flex-row items-center lg:flex lg:flex-col xl:flex xl:flex-row">
+          <div className="flex w-full flex-row items-center gap-1">
+            <img
+              src="/images/market/TopRight.png"
+              className="mt-0.5 h-8 w-8 rounded-[20px]  border-none"
+            />
+            <div className="flex flex-col">
+              <p className="w-full pt-1 font-mono text-[80%] font-thin text-[#6D6D6D] ">
+                Owner
+              </p>
+              <p className="w-full font-mono text-[100%] font-thin text-white ">
+                Andrew Jackson
+              </p>
+            </div>
+          </div>
+
+          <div className="flex w-full flex-row items-center gap-1">
+            <img
+              src="/images/market/Avatar.svg"
+              className="mt-0.5 h-8 w-8 rounded-[25px] border-none "
+            />
+            <div className="flex flex-col">
+              <p className="w-full pt-1 font-mono text-[80%] font-thin text-[#6D6D6D] ">
+                Owner
+              </p>
+              <p className="w-full font-mono text-[100%] font-thin text-white ">
+                Andrew Jackson
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* price */}
+        <div className="mt-5 w-full rounded-[15px] bg-zinc-900 p-10">
+          <div className="w-3/4 pt-1 font-mono text-[100%] font-thin text-[#6D6D6D] ">
+            Price
+          </div>
+
+          <div className="flex:row m-5 flex w-full items-center font-mono font-thin lg:flex lg:flex-col xl:flex xl:flex-row">
+            <div className="flex w-1/2 flex-row items-center">
+              <img
+                className="mb-1 h-[35px] w-[35px]"
+                src="/images/market/Mark.svg"
+              />
+              <div className="ml-3 w-1/4 text-[170%] font-thin text-white ">
+                225.31
+              </div>
+            </div>
+            <div className="flex w-1/2 flex-row-reverse items-center">
+              <div className="w-1/5 font-mono text-[100%] font-thin text-[#6D6D6D] ">
+                155
+              </div>
+              <img
+                className="h-4 w-4 rounded-[10px] border"
+                src="/images/market/Mark-gr.svg"
+                alt="Mark"
+              />
+              <div className="w-3/4 pr-1 text-right font-mono text-[100%] font-thin text-[#6D6D6D] ">
+                Floor price
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* button */}
+        <div className="mt-5 flex w-full flex-row items-center justify-between xl:justify-around">
+          <button className="xl:[430px] h-[50px] w-4/5 items-center rounded-[20px] rounded-lg bg-cyan-400 bg-gradient-to-r text-center text-[30px] font-medium text-black hover:bg-blue-500 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800">
+            Buy now
+          </button>
+          <button type="button">
+            <img
+              className="h-[55px] w-[55px] rounded-[17px] border border-0 border-none bg-[#ffffff] bg-opacity-5 p-[10px] text-center hover:bg-blue-700 hover:text-white dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 dark:hover:text-white"
+              src="/images/market/hammer-wh.svg"
+              alt="Mark"
+            />
+          </button>
+        </div>
       </div>
+    </div>
   )
 }

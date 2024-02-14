@@ -1,39 +1,39 @@
-"use client";
+'use client'
 
-import { useDetectClickOutside } from "react-detect-click-outside";
+import { useDetectClickOutside } from 'react-detect-click-outside'
 
-import { ServerWithMembersWithProfiles } from "@/types";
-import { ChannelType, MemberRole } from "@prisma/client";
-import { ChevronDown } from "lucide-react";
-import { FaCheckCircle, FaCog } from "react-icons/fa";
-import { IoCloseSharp, IoCopy } from "react-icons/io5";
-import { useModal } from "@/hooks/use-modal-store";
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { BsChatLeftTextFill } from "react-icons/bs";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { ServerSection } from "./server-section";
-import { ServerChannel } from "./server-channel";
-import { ServerMember } from "./server-member";
-import { FaMicrophone } from "react-icons/fa";
-import { IoStorefront } from "react-icons/io5";
-import { FaCamera } from "react-icons/fa6";
-import { HiUsers } from "react-icons/hi2";
-import { cn } from "@/lib/utils";
-import { FaPlus } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
-import { useParams } from "next/navigation";
-import { FaHashtag } from "react-icons/fa";
-import { RiMegaphoneFill } from "react-icons/ri";
+import { ServerWithMembersWithProfiles } from '@/types'
+import { ChannelType, MemberRole } from '@prisma/client'
+import { ChevronDown } from 'lucide-react'
+import { FaCheckCircle, FaCog } from 'react-icons/fa'
+import { IoCloseSharp, IoCopy } from 'react-icons/io5'
+import { useModal } from '@/hooks/use-modal-store'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { BsChatLeftTextFill } from 'react-icons/bs'
+import { ScrollArea } from '@radix-ui/react-scroll-area'
+import { ServerSection } from './server-section'
+import { ServerChannel } from './server-channel'
+import { ServerMember } from './server-member'
+import { FaMicrophone } from 'react-icons/fa'
+import { IoStorefront } from 'react-icons/io5'
+import { FaCamera } from 'react-icons/fa6'
+import { HiUsers } from 'react-icons/hi2'
+import { cn } from '@/lib/utils'
+import { FaPlus } from 'react-icons/fa'
+import { IoClose } from 'react-icons/io5'
+import { useParams } from 'next/navigation'
+import { FaHashtag } from 'react-icons/fa'
+import { RiMegaphoneFill } from 'react-icons/ri'
 
 const DEFAULT_CHANNELS = [
-  "Announcements",
-  "general",
-  "Voice chat",
-  "Marketplace",
-  "Sneak-peeks",
-  "Team",
-];
+  'Announcements',
+  'general',
+  'Voice chat',
+  'Marketplace',
+  'Sneak-peeks',
+  'Team',
+]
 
 const annoucementIcon = (
   <svg
@@ -48,20 +48,20 @@ const annoucementIcon = (
       fill="white"
     />
   </svg>
-);
+)
 interface ServerRightRoomsProps {
-  server: ServerWithMembersWithProfiles;
-  role?: MemberRole;
-  members: any;
-  textChannels: any;
-  audioChannels: any;
-  videoChannels: any;
+  server: ServerWithMembersWithProfiles
+  role?: MemberRole
+  members: any
+  textChannels: any
+  audioChannels: any
+  videoChannels: any
 }
 
 const dropdownVariants = {
-  open: { opacity: 1, height: "auto", scaleY: 1 },
+  open: { opacity: 1, height: 'auto', scaleY: 1 },
   closed: { opacity: 0, height: 0, scaleY: 0 },
-};
+}
 
 export const ServerRightRooms = ({
   server,
@@ -71,81 +71,81 @@ export const ServerRightRooms = ({
   audioChannels,
   videoChannels,
 }: ServerRightRoomsProps) => {
-  const { onOpen } = useModal();
-  const isAdmin = role === MemberRole.ADMIN;
-  const params = useParams();
-  const isModerator = isAdmin || role === MemberRole.MODERATOR;
-  const [open, setOpen] = useState(false);
-  const [currentChannelName, setCurrentChannelName] = useState("");
-  const [currentChannelId, setCurrentChannelId] = useState("");
+  const { onOpen } = useModal()
+  const isAdmin = role === MemberRole.ADMIN
+  const params = useParams()
+  const isModerator = isAdmin || role === MemberRole.MODERATOR
+  const [open, setOpen] = useState(false)
+  const [currentChannelName, setCurrentChannelName] = useState('')
+  const [currentChannelId, setCurrentChannelId] = useState('')
 
-  const allChannels = [...textChannels, ...audioChannels, ...videoChannels];
+  const allChannels = [...textChannels, ...audioChannels, ...videoChannels]
   // Separate default and non-default channels
   const defaultChannels = allChannels
     .filter((channel) => DEFAULT_CHANNELS.includes(channel.name))
     .sort(
       (a, b) =>
-        DEFAULT_CHANNELS.indexOf(a.name) - DEFAULT_CHANNELS.indexOf(b.name)
-    );
+        DEFAULT_CHANNELS.indexOf(a.name) - DEFAULT_CHANNELS.indexOf(b.name),
+    )
 
   const nonDefaultChannels = allChannels.filter(
-    (channel) => !DEFAULT_CHANNELS.includes(channel.name)
-  );
+    (channel) => !DEFAULT_CHANNELS.includes(channel.name),
+  )
 
   const closeMenu = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
-  const ref = useDetectClickOutside({ onTriggered: closeMenu });
+  const ref = useDetectClickOutside({ onTriggered: closeMenu })
 
   useEffect(() => {
     if (params?.channelId) {
       const currentChannel = allChannels.find(
-        (channel) => channel.id === params?.channelId
-      );
+        (channel) => channel.id === params?.channelId,
+      )
       if (currentChannel) {
-        setCurrentChannelName(currentChannel.name);
-        setCurrentChannelId(currentChannel.id);
+        setCurrentChannelName(currentChannel.name)
+        setCurrentChannelId(currentChannel.id)
       }
     }
-  }, [params?.channelId, allChannels]);
+  }, [params?.channelId, allChannels])
 
   const channelIconMap = {
     general: <BsChatLeftTextFill />,
-    "Voice chat": <FaMicrophone />,
+    'Voice chat': <FaMicrophone />,
     Marketplace: <IoStorefront />,
-    "Sneak-peeks": <FaCamera />,
+    'Sneak-peeks': <FaCamera />,
     Team: <HiUsers />,
     Announcements: <RiMegaphoneFill />,
-  };
+  }
 
   return (
     <div className="relative flex items-center gap-10 ">
       <div
         className={
           open
-            ? "flex flex-col items-start border bg-white/5 rounded-2xl rounded-b-none border-b-0 transition-all w-[200px] delay-0"
-            : "flex flex-col items-start border bg-white/5 rounded-2xl transition-all delay-0 w-[200px]"
+            ? 'flex w-[200px] flex-col items-start rounded-2xl rounded-b-none border border-b-0 bg-white/5 transition-all delay-0'
+            : 'flex w-[200px] flex-col items-start rounded-2xl border bg-white/5 transition-all delay-0'
         }
       >
         {open ? (
           <>
             <button
               onClick={() => setOpen(!open)}
-              className="flex items-center justify-center gap-2 px-4 py-2 font-normal transition outline-none cursor-pointer hover:opacity-80 focus:outline-none"
+              className="flex cursor-pointer items-center justify-center gap-2 px-4 py-2 font-normal outline-none transition hover:opacity-80 focus:outline-none"
             ></button>
           </>
         ) : (
           <>
-            {currentChannelName === "" ? (
+            {currentChannelName === '' ? (
               <>
-                <button className="flex items-center w-[200px] h-12 justify-center gap-2 px-4 py-3 font-normal capitalize transition outline-none cursor-pointer animate-pulse hover:opacity-80 focus:outline-none"></button>
+                <button className="flex h-12 w-[200px] animate-pulse cursor-pointer items-center justify-center gap-2 px-4 py-3 font-normal capitalize outline-none transition hover:opacity-80 focus:outline-none"></button>
               </>
             ) : (
               <>
                 <button
                   onClick={() => setOpen(!open)}
-                  className="flex items-center justify-center gap-2 px-4 py-3 font-normal capitalize transition outline-none cursor-pointer hover:opacity-80 focus:outline-none"
+                  className="flex cursor-pointer items-center justify-center gap-2 px-4 py-3 font-normal capitalize outline-none transition hover:opacity-80 focus:outline-none"
                 >
                   <div className="text-white">
                     {
@@ -155,7 +155,7 @@ export const ServerRightRooms = ({
                   </div>
                   {currentChannelName}
                   <ChevronDown
-                    className={`w-5 h-5 ml-auto ${open ? "rotate-180" : ""}`}
+                    className={`ml-auto h-5 w-5 ${open ? 'rotate-180' : ''}`}
                   />
                 </button>
               </>
@@ -172,7 +172,7 @@ export const ServerRightRooms = ({
               variants={dropdownVariants}
               transition={{ duration: 0.2 }}
               ref={ref}
-              className="absolute left-0 z-10 w-full  bg-[#2C2D2E] top-full rounded-b-2xl max-h-[500px] overflow-y-scroll"
+              className="absolute left-0 top-full z-10  max-h-[500px] w-full overflow-y-scroll rounded-b-2xl bg-[#2C2D2E]"
               style={{ originY: 0 }}
             >
               <ScrollArea>
@@ -192,9 +192,9 @@ export const ServerRightRooms = ({
                   </div>
                 )}
 
-                <div className="w-full h-[1px] opacity-20 my-5 bg-[#53ACFF]"></div>
+                <div className="my-5 h-[1px] w-full bg-[#53ACFF] opacity-20"></div>
 
-                <div className="p-0 overflow-y-scroll">
+                <div className="overflow-y-scroll p-0">
                   <ScrollArea className="flex-1 px-3">
                     {!!nonDefaultChannels?.length && (
                       <div className="mb-2">
@@ -223,16 +223,16 @@ export const ServerRightRooms = ({
                     */
                       <button
                         onClick={() =>
-                          onOpen("createChannel", {
+                          onOpen('createChannel', {
                             channelType: ChannelType.TEXT,
                           })
                         }
                         className={cn(
-                          "flex items-center cursor-pointer hover:opacity-80 relative text-[#50FFFF] gap-3 px-4 py-3 pt-0 font-normal transition w-full"
+                          'relative flex w-full cursor-pointer items-center gap-3 px-4 py-3 pt-0 font-normal text-[#50FFFF] transition hover:opacity-80',
                         )}
                       >
                         <div className="shadow-blue ">
-                          {" "}
+                          {' '}
                           <FaPlus />
                         </div>
                         Create Room
@@ -260,8 +260,8 @@ export const ServerRightRooms = ({
         </AnimatePresence>
       </div>
     </div>
-  );
-};
+  )
+}
 
 /*
 

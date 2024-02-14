@@ -1,31 +1,31 @@
-"use client";
+'use client'
 
-import { Channel, ChannelType, MemberRole, Server } from "@prisma/client";
-import { Edit, Hash, Lock, Mic, Trash, Video } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { Channel, ChannelType, MemberRole, Server } from '@prisma/client'
+import { Edit, Hash, Lock, Mic, Trash, Video } from 'lucide-react'
+import { useParams, useRouter } from 'next/navigation'
 
-import { cn } from "@/lib/utils";
-import { ActionTooltip } from "@/components/action-tooltip";
-import { ModalType, useModal } from "@/hooks/use-modal-store";
-import { BsChatLeftTextFill } from "react-icons/bs";
-import { FaCamera, FaMicrophone } from "react-icons/fa6";
-import { IoStorefront } from "react-icons/io5";
-import { HiUsers } from "react-icons/hi2";
-import { FaHashtag } from "react-icons/fa";
-import { RiMegaphoneFill } from "react-icons/ri";
+import { cn } from '@/lib/utils'
+import { ActionTooltip } from '@/components/action-tooltip'
+import { ModalType, useModal } from '@/hooks/use-modal-store'
+import { BsChatLeftTextFill } from 'react-icons/bs'
+import { FaCamera, FaMicrophone } from 'react-icons/fa6'
+import { IoStorefront } from 'react-icons/io5'
+import { HiUsers } from 'react-icons/hi2'
+import { FaHashtag } from 'react-icons/fa'
+import { RiMegaphoneFill } from 'react-icons/ri'
 
 interface ServerChannelProps {
-  channel: Channel;
-  server: Server;
-  role?: MemberRole;
-  defaultChannel?: boolean;
+  channel: Channel
+  server: Server
+  role?: MemberRole
+  defaultChannel?: boolean
 }
 
 const iconMap = {
   [ChannelType.TEXT]: Hash,
   [ChannelType.AUDIO]: Mic,
   [ChannelType.VIDEO]: Video,
-};
+}
 
 const annoucementIcon = (
   <svg
@@ -40,7 +40,7 @@ const annoucementIcon = (
       fill="white"
     />
   </svg>
-);
+)
 
 export const ServerChannel = ({
   channel,
@@ -48,40 +48,40 @@ export const ServerChannel = ({
   role,
   defaultChannel,
 }: ServerChannelProps) => {
-  const { onOpen } = useModal();
-  const params = useParams();
-  const router = useRouter();
+  const { onOpen } = useModal()
+  const params = useParams()
+  const router = useRouter()
 
-  const Icon = iconMap[channel.type];
+  const Icon = iconMap[channel.type]
 
   const onClick = () => {
-    router.push(`/servers/${params?.serverId}/channels/${channel.id}`);
-  };
+    router.push(`/servers/${params?.serverId}/channels/${channel.id}`)
+  }
 
   const onAction = (e: React.MouseEvent, action: ModalType) => {
-    e.stopPropagation();
-    onOpen(action, { channel, server });
-  };
+    e.stopPropagation()
+    onOpen(action, { channel, server })
+  }
 
   const channelIconMap = {
     general: <BsChatLeftTextFill />,
-    "Voice chat": <FaMicrophone />,
+    'Voice chat': <FaMicrophone />,
     Marketplace: <IoStorefront />,
-    "Sneak-peeks": <FaCamera />,
+    'Sneak-peeks': <FaCamera />,
     Team: <HiUsers />,
     Announcements: <RiMegaphoneFill />,
-  };
+  }
 
   return (
     <>
       <button
         onClick={onClick}
         className={cn(
-          "flex items-center justify-start gap-3 px-4 py-3 font-normal transition w-full cursor-pointer hover:opacity-80"
+          'flex w-full cursor-pointer items-center justify-start gap-3 px-4 py-3 font-normal transition hover:opacity-80',
         )}
       >
         {params?.channelId === channel.id ? (
-          <div className="text-[#50FFFF] shadow-blue ">
+          <div className="shadow-blue text-[#50FFFF] ">
             {
               //@ts-ignore
               channelIconMap[channel.name] || <FaHashtag />
@@ -97,37 +97,37 @@ export const ServerChannel = ({
         )}
 
         {params?.channelId === channel.id && (
-          <div className="absolute bg-[#50FFFF] w-[5px] h-[40px] left-0 rounded-r-lg"></div>
+          <div className="absolute left-0 h-[40px] w-[5px] rounded-r-lg bg-[#50FFFF]"></div>
         )}
 
         <p
           className={cn(
-            "text-white capitalize",
-            params?.channelId === channel.id && "text-[#50FFFF]"
+            'capitalize text-white',
+            params?.channelId === channel.id && 'text-[#50FFFF]',
           )}
         >
           {channel.name}
         </p>
-        {channel.name !== "general" && role !== MemberRole.GUEST && (
-          <div className="flex items-center ml-auto gap-x-2">
+        {channel.name !== 'general' && role !== MemberRole.GUEST && (
+          <div className="ml-auto flex items-center gap-x-2">
             <ActionTooltip label="Edit">
               <Edit
-                onClick={(e) => onAction(e, "editChannel")}
-                className="hidden w-4 h-4 transition group-hover:block text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300"
+                onClick={(e) => onAction(e, 'editChannel')}
+                className="hidden h-4 w-4 text-zinc-500 transition group-hover:block hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300"
               />
             </ActionTooltip>
             <ActionTooltip label="Delete">
               <Trash
-                onClick={(e) => onAction(e, "deleteChannel")}
-                className="hidden w-4 h-4 transition group-hover:block text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300"
+                onClick={(e) => onAction(e, 'deleteChannel')}
+                className="hidden h-4 w-4 text-zinc-500 transition group-hover:block hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300"
               />
             </ActionTooltip>
           </div>
         )}
-        {channel.name === "general" && (
-          <Lock className="w-4 h-4 ml-auto text-zinc-500 dark:text-zinc-400" />
+        {channel.name === 'general' && (
+          <Lock className="ml-auto h-4 w-4 text-zinc-500 dark:text-zinc-400" />
         )}
       </button>
     </>
-  );
-};
+  )
+}

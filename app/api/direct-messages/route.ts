@@ -1,30 +1,28 @@
-import { NextResponse } from "next/server";
-import { DirectMessage } from "@prisma/client";
+import { NextResponse } from 'next/server'
+import { DirectMessage } from '@prisma/client'
 
-import { currentProfile } from "@/lib/current-profile";
-import prisma from "@/lib/prisma";
+import { currentProfile } from '@/lib/current-profile'
+import prisma from '@/lib/prisma'
 
-const MESSAGES_BATCH = 10;
+const MESSAGES_BATCH = 10
 
-export async function GET(
-  req: Request
-) {
+export async function GET(req: Request) {
   try {
-    const profile = await currentProfile();
-    const { searchParams } = new URL(req.url);
+    const profile = await currentProfile()
+    const { searchParams } = new URL(req.url)
 
-    const cursor = searchParams.get("cursor");
-    const conversationId = searchParams.get("conversationId");
+    const cursor = searchParams.get('cursor')
+    const conversationId = searchParams.get('conversationId')
 
     if (!profile) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-  
-    if (!conversationId) {
-      return new NextResponse("Conversation ID missing", { status: 400 });
+      return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    let messages: DirectMessage[] = [];
+    if (!conversationId) {
+      return new NextResponse('Conversation ID missing', { status: 400 })
+    }
+
+    let messages: DirectMessage[] = []
 
     if (cursor) {
       messages = await prisma.directMessage.findMany({
@@ -40,12 +38,12 @@ export async function GET(
           member: {
             include: {
               profile: true,
-            }
-          }
+            },
+          },
         },
         orderBy: {
-          createdAt: "desc",
-        }
+          createdAt: 'desc',
+        },
       })
     } else {
       messages = await prisma.directMessage.findMany({
@@ -57,27 +55,27 @@ export async function GET(
           member: {
             include: {
               profile: true,
-            }
-          }
+            },
+          },
         },
         orderBy: {
-          createdAt: "desc",
-        }
-      });
+          createdAt: 'desc',
+        },
+      })
     }
 
-    let nextCursor = null;
+    let nextCursor = null
 
     if (messages.length === MESSAGES_BATCH) {
-      nextCursor = messages[MESSAGES_BATCH - 1].id;
+      nextCursor = messages[MESSAGES_BATCH - 1].id
     }
 
     return NextResponse.json({
       items: messages,
-      nextCursor
-    });
+      nextCursor,
+    })
   } catch (error) {
-    console.log("[DIRECT_MESSAGES_GET]", error);
-    return new NextResponse("Internal Error", { status: 500 });
+    console.log('[DIRECT_MESSAGES_GET]', error)
+    return new NextResponse('Internal Error', { status: 500 })
   }
 }

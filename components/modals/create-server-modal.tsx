@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
 
-import { FileUpload } from "@/components/file-upload";
-import { Button } from "@/components/ui/button";
+import { FileUpload } from '@/components/file-upload'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -14,7 +14,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -22,59 +22,57 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useModal } from "@/hooks/use-modal-store";
-import { Icon } from "@iconify/react";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { useModal } from '@/hooks/use-modal-store'
+import { Icon } from '@iconify/react'
+import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
   name: z.string().min(1, {
-    message: "Community name is required.",
+    message: 'Community name is required.',
   }),
   imageUrl: z.string().min(1, {
-    message: "Community image is required.",
+    message: 'Community image is required.',
   }),
-});
+})
 
 export const CreateServerModal = () => {
-  const { isOpen, onClose, type } = useModal();
-  const router = useRouter();
+  const { isOpen, onClose, type } = useModal()
+  const router = useRouter()
 
-  const isModalOpen = isOpen && type === "createServer";
+  const isModalOpen = isOpen && type === 'createServer'
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      imageUrl: "",
+      name: '',
+      imageUrl: '',
     },
-  });
+  })
 
-  const isLoading = form.formState.isSubmitting;
+  const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/servers", values);
+      await axios.post('/api/servers', values)
 
-
-      
-      form.reset();
-      router.refresh();
-      onClose();
+      form.reset()
+      router.refresh()
+      onClose()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const handleClose = () => {
-    form.reset();
-    onClose();
-  };
+    form.reset()
+    onClose()
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-    <DialogContent className="overflow-hidden bg-gradient-to-tr rounded-2xl from-[#2e272c] to-[#151415]">
+      <DialogContent className="overflow-hidden rounded-2xl bg-gradient-to-tr from-[#2e272c] to-[#151415]">
         {/* <DialogHeader className="px-6 pt-8">
           <DialogTitle className="text-2xl font-bold text-center">
             Customize your server
@@ -102,7 +100,7 @@ export const CreateServerModal = () => {
                 )}
               />
             </div>
-            <div className="flex flex-col w-full gap-2 ">
+            <div className="flex w-full flex-col gap-2 ">
               <FormField
                 control={form.control}
                 name="name"
@@ -111,30 +109,30 @@ export const CreateServerModal = () => {
                     <FormControl>
                       <Input
                         disabled={isLoading}
-                        className="placeholder:text-foreground/20 bg-transparent border mx-auto h-[50px] max-w-[300px] text-center border-foreground/50 rounded-lg focus-visible:ring-0 text-foreground focus-visible:ring-offset-0"
+                        className="mx-auto h-[50px] max-w-[300px] rounded-lg border border-foreground/50 bg-transparent text-center text-foreground placeholder:text-foreground/20 focus-visible:ring-0 focus-visible:ring-offset-0"
                         placeholder="Community Name"
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-xs font-normal text-center" />
+                    <FormMessage className="text-center text-xs font-normal" />
                   </FormItem>
                 )}
               />
 
-              <div className="flex flex-col w-full gap-1">
+              <div className="flex w-full flex-col gap-1">
                 <Button
-                  className="rounded-lg mx-auto hover:bg-[#40CACA] h-[50px] min-w-[300px] bg-[#50FFFF] text-black"
+                  className="mx-auto h-[50px] min-w-[300px] rounded-lg bg-[#50FFFF] text-black hover:bg-[#40CACA]"
                   disabled={isLoading}
                 >
                   {isLoading && (
                     <Icon
                       icon="line-md:loading-twotone-loop"
-                      className="w-5 h-5 mr-3"
+                      className="mr-3 h-5 w-5"
                     />
                   )}
                   <span>Create</span>
                 </Button>
-                <span className="text-[8px] text-center font-extralight">
+                <span className="text-center text-[8px] font-extralight">
                   You can add additional information in the community settings
                   after creation.
                 </span>
@@ -144,5 +142,5 @@ export const CreateServerModal = () => {
         </Form>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

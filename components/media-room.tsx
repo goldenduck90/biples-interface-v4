@@ -1,59 +1,57 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import { LiveKitRoom, VideoConference } from "@livekit/components-react";
-import "@livekit/components-styles";
-import { Channel } from "@prisma/client";
+import { useEffect, useState } from 'react'
+import { LiveKitRoom, VideoConference } from '@livekit/components-react'
+import '@livekit/components-styles'
+import { Channel } from '@prisma/client'
 
-import { Loader2 } from "lucide-react";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
-import { CustomVideoConference } from "./custom-videoconference";
+import { Loader2 } from 'lucide-react'
+import { useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
+import { CustomVideoConference } from './custom-videoconference'
 
 interface MediaRoomProps {
-  chatId: string;
-  video: boolean;
-  audio: boolean;
+  chatId: string
+  video: boolean
+  audio: boolean
 }
 
 export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
-  const { data: session } = useSession();
-  const user = session?.user;
+  const { data: session } = useSession()
+  const user = session?.user
 
   if (!user) {
-    redirect("/sign-in");
+    redirect('/sign-in')
   }
 
   //@ts-ignore
-  const username = user.username;
+  const username = user.username
 
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('')
 
   useEffect(() => {
-    if (!username) return;
+    if (!username) return
 
-    const name = `${username}`;
+    const name = `${username}`
 
-    (async () => {
+    ;(async () => {
       try {
-        const resp = await fetch(
-          `/api/livekit?room=${chatId}&username=${name}`
-        );
-        const data = await resp.json();
-        setToken(data.token);
+        const resp = await fetch(`/api/livekit?room=${chatId}&username=${name}`)
+        const data = await resp.json()
+        setToken(data.token)
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
-    })();
-  }, [username, chatId]);
+    })()
+  }, [username, chatId])
 
-  if (token === "") {
+  if (token === '') {
     return (
-      <div className="flex flex-col items-center justify-center flex-1">
-        <Loader2 className="my-4 h-7 w-7 text-zinc-500 animate-spin" />
+      <div className="flex flex-1 flex-col items-center justify-center">
+        <Loader2 className="my-4 h-7 w-7 animate-spin text-zinc-500" />
         <p className="text-xs text-zinc-500 dark:text-zinc-400">Loading...</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -67,5 +65,5 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
     >
       <CustomVideoConference />
     </LiveKitRoom>
-  );
-};
+  )
+}

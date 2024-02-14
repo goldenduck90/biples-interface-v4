@@ -1,96 +1,96 @@
-import { NextAuthOptions } from "next-auth";
-import { Signature } from "@/lib/signature";
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { getCsrfToken } from "next-auth/react";
+import { NextAuthOptions } from 'next-auth'
+import { Signature } from '@/lib/signature'
+import NextAuth from 'next-auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
+import { getCsrfToken } from 'next-auth/react'
 import type {
   GetServerSidePropsContext,
   NextApiRequest,
   NextApiResponse,
-} from "next";
-import { getServerSession } from "next-auth";
+} from 'next'
+import { getServerSession } from 'next-auth'
 
 const providers = [
   CredentialsProvider({
-    name: "web3-auth",
+    name: 'web3-auth',
     credentials: {
       signature: {
-        label: "Signature",
-        type: "text",
+        label: 'Signature',
+        type: 'text',
       },
       message: {
-        label: "Message",
-        type: "text",
+        label: 'Message',
+        type: 'text',
       },
-      username: { label: "Username", type: "text" },
+      username: { label: 'Username', type: 'text' },
     },
     async authorize(credentials, req: any) {
-      const { publicKey, host } = JSON.parse(credentials?.message || "{}");
+      const { publicKey, host } = JSON.parse(credentials?.message || '{}')
 
-      const nextAuthUrl = new URL(process.env.NEXTAUTH_URL || "");
+      const nextAuthUrl = new URL(process.env.NEXTAUTH_URL || '')
 
       if (host !== nextAuthUrl.host) {
-        return null;
+        return null
       }
 
-      const username = credentials!.username;
+      const username = credentials!.username
       if (!username) {
-        throw new Error("Username is required");
+        throw new Error('Username is required')
       }
-      console.log("username", username);
-      const crsf = await getCsrfToken({ req: { ...req, body: null } });
+      console.log('username', username)
+      const crsf = await getCsrfToken({ req: { ...req, body: null } })
 
       if (!crsf) {
-        return null;
+        return null
       }
 
-      const nonceUnit8 = Signature.create(crsf);
+      const nonceUnit8 = Signature.create(crsf)
 
       const isValidate = await Signature.validate(
         {
-          signature: credentials?.signature || "",
+          signature: credentials?.signature || '',
           publicKey,
         },
-        nonceUnit8
-      );
+        nonceUnit8,
+      )
 
       if (!isValidate) {
-        throw new Error("Could not validate the signed message");
+        throw new Error('Could not validate the signed message')
       }
-      return { id: publicKey, username };
+      return { id: publicKey, username }
     },
   }),
-];
+]
 
 export const authOptions: NextAuthOptions = {
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
   providers,
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
-        token.username = (user as any)['username']; //TODO
+        token.username = (user as any)['username'] //TODO
       }
-      return token;
+      return token
     },
     session({ session, token }: any) {
-      console.log("session", session);
-      console.log("token", token);
+      console.log('session', session)
+      console.log('token', token)
       if (session.user) {
-        session.user.walletId = token.sub;
-        session.user.username = token.username;
+        session.user.walletId = token.sub
+        session.user.username = token.username
       }
-      return session;
+      return session
     },
   },
-};
+}
 
 export function auth(
   ...args:
-    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
+    | [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']]
     | [NextApiRequest, NextApiResponse]
     | []
 ) {
-  return getServerSession(...args, authOptions);
+  return getServerSession(...args, authOptions)
 }

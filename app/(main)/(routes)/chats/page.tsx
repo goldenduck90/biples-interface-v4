@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const MyNFTsPage: React.FC = () => {
   return (
@@ -6,7 +6,7 @@ const MyNFTsPage: React.FC = () => {
       <h1>Chat</h1>
       {/* Add your NFT components or logic here */}
     </div>
-  );
-};
+  )
+}
 
-export default MyNFTsPage;
+export default MyNFTsPage

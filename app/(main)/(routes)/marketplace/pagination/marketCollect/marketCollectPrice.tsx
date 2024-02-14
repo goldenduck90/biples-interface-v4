@@ -1,11 +1,11 @@
-interface Props{
+interface Props {
   price: string
 }
-export default function MarketCollectPrice({price}:Props) {
+export default function MarketCollectPrice({ price }: Props) {
   return (
-    <div className="grid gird-start-8 col-span-2 w-full">
-      <div className="flex flex-row w-full h-5">
-        <div className=" pt-2.5 w-1/12">
+    <div className="gird-start-8 col-span-2 grid w-full">
+      <div className="flex h-5 w-full flex-row">
+        <div className=" w-1/12 pt-2.5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="8"
@@ -20,15 +20,15 @@ export default function MarketCollectPrice({price}:Props) {
           </svg>
         </div>
         <div className="w-4/5">
-          <div className="font-sans font-thin text-white text-[120%] ml-1">
+          <div className="ml-1 font-sans text-[120%] font-thin text-white">
             {price}
           </div>
         </div>
       </div>
 
-      <div className="w-full font-sans font-thin text-gray-500 text-[70%]">
+      <div className="w-full font-sans text-[70%] font-thin text-gray-500">
         Floor price
       </div>
     </div>
-  );
+  )
 }

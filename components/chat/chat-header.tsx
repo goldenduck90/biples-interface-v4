@@ -1,17 +1,17 @@
-import { Hash } from "lucide-react";
+import { Hash } from 'lucide-react'
 
-import { MobileToggle } from "@/components/mobile-toggle";
-import { UserAvatar } from "@/components/user-avatar";
-import { SocketIndicator } from "@/components/socket-indicator";
+import { MobileToggle } from '@/components/mobile-toggle'
+import { UserAvatar } from '@/components/user-avatar'
+import { SocketIndicator } from '@/components/socket-indicator'
 
-import { ChatVideoButton } from "./chat-video-button";
-import { ServerSidebar } from "../server/server-sidebar";
+import { ChatVideoButton } from './chat-video-button'
+import { ServerSidebar } from '../server/server-sidebar'
 
 interface ChatHeaderProps {
-  serverId: string;
-  name: string;
-  type: "channel" | "conversation";
-  imageUrl?: string;
+  serverId: string
+  name: string
+  type: 'channel' | 'conversation'
+  imageUrl?: string
 }
 
 export const ChatHeader = ({
@@ -21,7 +21,7 @@ export const ChatHeader = ({
   imageUrl,
 }: ChatHeaderProps) => {
   return (
-    <div className="relative flex items-center w-full h-auto px-3 py-2 font-semibold text-md">
+    <div className="text-md relative flex h-auto w-full items-center px-3 py-2 font-semibold">
       {/*
 <MobileToggle serverId={serverId} />
       {type === "channel" && (
@@ -47,5 +47,5 @@ export const ChatHeader = ({
         <ServerSidebar serverId={serverId} />
       </div>
     </div>
-  );
-};
+  )
+}

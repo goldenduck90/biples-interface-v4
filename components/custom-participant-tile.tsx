@@ -1,14 +1,14 @@
-import * as React from "react";
-import type { Participant, TrackPublication } from "livekit-client";
-import { Track } from "livekit-client";
+import * as React from 'react'
+import type { Participant, TrackPublication } from 'livekit-client'
+import { Track } from 'livekit-client'
 import type {
   ParticipantClickEvent,
   TrackReferenceOrPlaceholder,
-} from "@livekit/components-core";
+} from '@livekit/components-core'
 import {
   isTrackReference,
   isTrackReferencePinned,
-} from "@livekit/components-core";
+} from '@livekit/components-core'
 import {
   AudioTrack,
   ConnectionQualityIndicator,
@@ -28,9 +28,9 @@ import {
   useMaybeParticipantContext,
   useMaybeTrackRefContext,
   useParticipantTile,
-} from "@livekit/components-react";
-import { SpeakerInfo } from "livekit-server-sdk/dist/proto/livekit_models";
-import { FaMicrophone } from "react-icons/fa";
+} from '@livekit/components-react'
+import { SpeakerInfo } from 'livekit-server-sdk/dist/proto/livekit_models'
+import { FaMicrophone } from 'react-icons/fa'
 
 /**
  * The `ParticipantContextIfNeeded` component only creates a `ParticipantContext`
@@ -45,17 +45,17 @@ import { FaMicrophone } from "react-icons/fa";
  */
 export function ParticipantContextIfNeeded(
   props: React.PropsWithChildren<{
-    participant?: Participant;
-  }>
+    participant?: Participant
+  }>,
 ) {
-  const hasContext = !!useMaybeParticipantContext();
+  const hasContext = !!useMaybeParticipantContext()
   return props.participant && !hasContext ? (
     <ParticipantContext.Provider value={props.participant}>
       {props.children}
     </ParticipantContext.Provider>
   ) : (
     <>{props.children}</>
-  );
+  )
 }
 
 /**
@@ -63,32 +63,32 @@ export function ParticipantContextIfNeeded(
  */
 function TrackRefContextIfNeeded(
   props: React.PropsWithChildren<{
-    trackRef?: TrackReferenceOrPlaceholder;
-  }>
+    trackRef?: TrackReferenceOrPlaceholder
+  }>,
 ) {
-  const hasContext = !!useMaybeTrackRefContext();
+  const hasContext = !!useMaybeTrackRefContext()
   return props.trackRef && !hasContext ? (
     <TrackRefContext.Provider value={props.trackRef}>
       {props.children}
     </TrackRefContext.Provider>
   ) : (
     <>{props.children}</>
-  );
+  )
 }
 
 /** @public */
 export interface ParticipantTileProps
   extends React.HTMLAttributes<HTMLDivElement> {
   /** The track reference to display. */
-  trackRef?: TrackReferenceOrPlaceholder;
-  disableSpeakingIndicator?: boolean;
+  trackRef?: TrackReferenceOrPlaceholder
+  disableSpeakingIndicator?: boolean
   /** @deprecated This parameter will be removed in a future version use `trackRef` instead. */
-  participant?: Participant;
+  participant?: Participant
   /** @deprecated This parameter will be removed in a future version use `trackRef` instead. */
-  source?: Track.Source;
+  source?: Track.Source
   /** @deprecated This parameter will be removed in a future version use `trackRef` instead. */
-  publication?: TrackPublication;
-  onParticipantClick?: (event: ParticipantClickEvent) => void;
+  publication?: TrackPublication
+  onParticipantClick?: (event: ParticipantClickEvent) => void
 }
 
 /**
@@ -118,17 +118,17 @@ export function CustomParticipantTile({
   ...htmlProps
 }: ParticipantTileProps) {
   // TODO: remove deprecated props and refactor in a future version.
-  const maybeTrackRef = useMaybeTrackRefContext();
-  const p = useEnsureParticipant(participant);
+  const maybeTrackRef = useMaybeTrackRefContext()
+  const p = useEnsureParticipant(participant)
   const trackReference: TrackReferenceOrPlaceholder = React.useMemo(() => {
     return {
       participant: trackRef?.participant ?? maybeTrackRef?.participant ?? p,
       source: trackRef?.source ?? maybeTrackRef?.source ?? source,
       publication:
         trackRef?.publication ?? maybeTrackRef?.publication ?? publication,
-    };
-  }, [maybeTrackRef, p, publication, source, trackRef]);
-  const isSpeaking = trackReference.participant.isSpeaking;
+    }
+  }, [maybeTrackRef, p, publication, source, trackRef])
+  const isSpeaking = trackReference.participant.isSpeaking
 
   const { elementProps } = useParticipantTile<HTMLDivElement>({
     participant: trackReference.participant,
@@ -137,11 +137,11 @@ export function CustomParticipantTile({
     publication: trackReference.publication,
     disableSpeakingIndicator,
     onParticipantClick,
-  });
-  const isEncrypted = useIsEncrypted(p);
-  const layoutContext = useMaybeLayoutContext();
+  })
+  const isEncrypted = useIsEncrypted(p)
+  const layoutContext = useMaybeLayoutContext()
 
-  const autoManageSubscription = useFeatureContext()?.autoSubscription;
+  const autoManageSubscription = useFeatureContext()?.autoSubscription
 
   const handleSubscribe = React.useCallback(
     (subscribed: boolean) => {
@@ -152,21 +152,21 @@ export function CustomParticipantTile({
         layoutContext.pin.dispatch &&
         isTrackReferencePinned(trackReference, layoutContext.pin.state)
       ) {
-        layoutContext.pin.dispatch({ msg: "clear_pin" });
+        layoutContext.pin.dispatch({ msg: 'clear_pin' })
       }
     },
-    [trackReference, layoutContext]
-  );
+    [trackReference, layoutContext],
+  )
 
   const isCameraEnabled =
     trackReference.publication?.track?.on &&
-    trackReference.source === Track.Source.Camera;
+    trackReference.source === Track.Source.Camera
   const isMicrophoneEnabled =
     trackReference.publication?.track?.on &&
-    trackReference.source === Track.Source.Microphone;
+    trackReference.source === Track.Source.Microphone
 
   return (
-    <div style={{ position: "relative" }} {...elementProps}>
+    <div style={{ position: 'relative' }} {...elementProps}>
       <TrackRefContextIfNeeded trackRef={trackReference}>
         <ParticipantContextIfNeeded participant={trackReference.participant}>
           {children ?? (
@@ -191,16 +191,16 @@ export function CustomParticipantTile({
               <div className="">
                 {trackReference.source === Track.Source.Camera ? (
                   <>
-                    <div className="flex items-center justify-start w-full gap-2 px-1 py-2">
+                    <div className="flex w-full items-center justify-start gap-2 px-1 py-2">
                       <img
                         src="https://i.ibb.co/1dMWvKX/pfp.png"
                         className={
                           isSpeaking
-                            ? "w-[40px] h-[40px] rounded-full img-talking "
-                            : "w-[40px] h-[40px] rounded-full"
+                            ? 'img-talking h-[40px] w-[40px] rounded-full '
+                            : 'h-[40px] w-[40px] rounded-full'
                         }
                       />
-                      <div className="flex flex-row items-center justify-between w-full">
+                      <div className="flex w-full flex-row items-center justify-between">
                         <div className="flex flex-col items-start font-bold">
                           {<ParticipantName />}
                           {isSpeaking ? (
@@ -219,21 +219,21 @@ export function CustomParticipantTile({
                         </div>
                         <div className="flex items-center gap-2">
                           {isSpeaking ? (
-                            <div className="text-[#4DE265] mr-2">
+                            <div className="mr-2 text-[#4DE265]">
                               <FaMicrophone />
                             </div>
                           ) : (
                             <>
                               <TrackMutedIndicator
                                 source={Track.Source.Microphone}
-                                show={"muted"}
+                                show={'muted'}
                               ></TrackMutedIndicator>
                             </>
                           )}
 
                           {isEncrypted && (
                             <LockLockedIcon
-                              style={{ marginRight: "0.25rem" }}
+                              style={{ marginRight: '0.25rem' }}
                             />
                           )}
                           {/*           <ConnectionQualityIndicator className="" /> */}
@@ -243,7 +243,7 @@ export function CustomParticipantTile({
                   </>
                 ) : (
                   <>
-                    <ScreenShareIcon style={{ marginRight: "0.25rem" }} />
+                    <ScreenShareIcon style={{ marginRight: '0.25rem' }} />
                     <ParticipantName>&apos;s screen</ParticipantName>
                   </>
                 )}
@@ -253,7 +253,7 @@ export function CustomParticipantTile({
         </ParticipantContextIfNeeded>
       </TrackRefContextIfNeeded>
     </div>
-  );
+  )
 }
 
 /*

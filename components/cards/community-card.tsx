@@ -1,28 +1,28 @@
-import Image from "next/image";
+import Image from 'next/image'
 
 interface CommunityCardProps {
-  imageURL: string;
-  followers: number;
-  avatar: string;
-  userName: string;
+  imageURL: string
+  followers: number
+  avatar: string
+  userName: string
 }
 
 export const CommunityCard = ({
   imageURL,
   followers,
   avatar,
-  userName
+  userName,
 }: CommunityCardProps) => {
   return (
-    <div className="relative w-[220px] h-[236px] bg-opacity-5  hover:bg-opacity-0 bg-[#ffffff] hover:animate-bounce hover:p-0 rounded-[25px]">
+    <div className="relative h-[236px] w-[220px] rounded-[25px]  bg-[#ffffff] bg-opacity-5 hover:animate-bounce hover:bg-opacity-0 hover:p-0">
       <Image
         src={imageURL}
         alt=""
         fill
         objectFit="contain"
-        className="absolute border rounded-[30px]"
+        className="absolute rounded-[30px] border"
       />
-      <div className="flex flex-row absolute bg-[#6D6D6D] rounded-full w-fit mt-6 ml-4 px-2 py-1 gap-1 bg-opacity-40 text-sm">
+      <div className="absolute ml-4 mt-6 flex w-fit flex-row gap-1 rounded-full bg-[#6D6D6D] bg-opacity-40 px-2 py-1 text-sm">
         <Image
           src="/images/home/person-icon.svg"
           alt=""
@@ -31,19 +31,14 @@ export const CommunityCard = ({
         />
         {followers}
       </div>
-      <div className="flex flex-row justify-between absolute bottom-6 w-full">
-        <div className="flex flex-row gap-2 ml-4">
-          <Image
-            src={avatar}
-            alt=""
-            width={26}
-            height={26}
-          />
+      <div className="absolute bottom-6 flex w-full flex-row justify-between">
+        <div className="ml-4 flex flex-row gap-2">
+          <Image src={avatar} alt="" width={26} height={26} />
           {userName}
         </div>
         <div className="mr-6">
           <Image
-            src='/images/home/community-arrow-icon.svg'
+            src="/images/home/community-arrow-icon.svg"
             alt=""
             width={20}
             height={20}
@@ -51,5 +46,5 @@ export const CommunityCard = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

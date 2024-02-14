@@ -1,89 +1,89 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react'
 
 // Data
-import data from "./data.json";
-import NextButton from "./nextButton";
-import PrevButton from "./prevButton";
+import data from './data.json'
+import NextButton from './nextButton'
+import PrevButton from './prevButton'
 
 const Trending = () => {
-  const maxScrollWidth = useRef(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const carousel = useRef<any>(null);
+  const maxScrollWidth = useRef(0)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const carousel = useRef<any>(null)
 
   const movePrev = () => {
     if (currentIndex > 0) {
-      setCurrentIndex((prevState) => prevState - 0.3);
+      setCurrentIndex((prevState) => prevState - 0.3)
     }
-  };
+  }
 
   const moveNext = () => {
     if (carousel.current.offsetWidth * currentIndex <= maxScrollWidth.current) {
-      setCurrentIndex((prevState) => prevState + 0.3);
+      setCurrentIndex((prevState) => prevState + 0.3)
     }
-  };
+  }
 
   const isDisabled = (direction: any) => {
-    if (direction === "prev") {
-      return currentIndex <= 0;
+    if (direction === 'prev') {
+      return currentIndex <= 0
     }
 
-    if (direction === "next" && carousel.current !== null) {
+    if (direction === 'next' && carousel.current !== null) {
       return (
         carousel.current.offsetWidth * currentIndex >= maxScrollWidth.current
-      );
+      )
     }
 
-    return false;
-  };
+    return false
+  }
 
   useEffect(() => {
     if (carousel !== null && carousel.current !== null) {
-      carousel.current.scrollLeft = carousel.current.offsetWidth * currentIndex;
+      carousel.current.scrollLeft = carousel.current.offsetWidth * currentIndex
     }
-  }, [currentIndex]);
+  }, [currentIndex])
 
   useEffect(() => {
     maxScrollWidth.current = carousel.current
       ? carousel.current.scrollWidth - carousel.current.offsetWidth
-      : 0;
-  }, []);
+      : 0
+  }, [])
 
   return (
     <div className="carousel my-12  sm:max-w-[95%] md:max-w-[95%] lg:max-w-[98%]  xl:max-w-[98%]">
       <div className="relative overflow-hidden">
-        <div className="w-full flex flex-row">
-          <div className="font-sans text-xl w-1/2">Trending</div>
+        <div className="flex w-full flex-row">
+          <div className="w-1/2 font-sans text-xl">Trending</div>
 
-          <div className="flex flex-row-reverse w-1/2">
+          <div className="flex w-1/2 flex-row-reverse">
             <NextButton moveNext={moveNext} isDisabled={isDisabled} />
             <PrevButton movePrev={movePrev} isDisabled={isDisabled} />
           </div>
         </div>
         <div
           ref={carousel}
-          className="carousel relative flex gap-5 overflow-hidden scroll-smooth snap-x snap-mandatory touch-pan-x z-0 w-full mt-8"
+          className="carousel relative z-0 mt-8 flex w-full touch-pan-x snap-x snap-mandatory gap-5 overflow-hidden scroll-smooth"
         >
           {data.map((resource, index) => (
             <div
               key={index}
-              className="carousel-item text-center snap-start relative w-32 h-32 md:w-40 md:h-40 lg:w-56 lg:h-56 xl:w-56 xl:h-56 bg-white/5 rounded-[25px]"
+              className="carousel-item relative h-32 w-32 snap-start rounded-[25px] bg-white/5 text-center md:h-40 md:w-40 lg:h-56 lg:w-56 xl:h-56 xl:w-56"
             >
-              <div className="h-full w-full aspect-square block bg-origin-padding bg-left-top bg-cover bg-no-repeat z-0">
+              <div className="z-0 block aspect-square h-full w-full bg-cover bg-left-top bg-no-repeat bg-origin-padding">
                 <img
-                  src={resource.imageUrl || ""}
+                  src={resource.imageUrl || ''}
                   alt=" "
-                  className="w-full aspect-square"
+                  className="aspect-square w-full"
                 />
-                <div className="absolute flex flex-row w-full bottom-2 ml-5 items-center">
+                <div className="absolute bottom-2 ml-5 flex w-full flex-row items-center">
                   <img
                     src={resource.imageL}
-                    className="hidden lg:block w-6"
+                    className="hidden w-6 lg:block"
                   ></img>
-                  <div className="hidden md:block ml-5  font-sans  font-thin  text-white  w-1/2 md:text-[50%] md: lg:text-[80%]  xl:text-[100%]">
+                  <div className="md: ml-5 hidden  w-1/2  font-sans  font-thin  text-white md:block md:text-[50%] lg:text-[80%]  xl:text-[100%]">
                     Claynosaurz
                   </div>
                   <div className="hidden xl:block  xl:w-1/2">
-                    <img src={resource.imageR} className="w-1/4 ml-1 "></img>
+                    <img src={resource.imageR} className="ml-1 w-1/4 "></img>
                   </div>
                 </div>
               </div>
@@ -92,7 +92,7 @@ const Trending = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Trending;
+export default Trending

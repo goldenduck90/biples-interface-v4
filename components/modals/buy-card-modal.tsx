@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import qs from "query-string";
-import axios from "axios";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { ChannelType } from "@prisma/client";
+import qs from 'query-string'
+import axios from 'axios'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { ChannelType } from '@prisma/client'
 
 import {
   Dialog,
@@ -13,7 +13,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -21,56 +21,56 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useModal } from "@/hooks/use-modal-store";
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
+import { useModal } from '@/hooks/use-modal-store'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { useEffect } from "react";
-import { CalendarIcon } from "lucide-react";
+} from '@/components/ui/select'
+import { useEffect } from 'react'
+import { CalendarIcon } from 'lucide-react'
 
 const formSchema = z.object({
   name: z
     .string()
     .min(1, {
-      message: "Price is required.",
+      message: 'Price is required.',
     })
-    .refine((name) => name !== "general", {
+    .refine((name) => name !== 'general', {
       message: "Price cannot be 'general'",
     }),
-});
+})
 
 export const BuyCardModal = () => {
-  const { isOpen, onClose, type, data } = useModal();
-  const router = useRouter();
-  const { onOpen } = useModal();
+  const { isOpen, onClose, type, data } = useModal()
+  const router = useRouter()
+  const { onOpen } = useModal()
 
-  const isModalOpen = isOpen && type === "buyCard";
-  const { channel, server } = data;
+  const isModalOpen = isOpen && type === 'buyCard'
+  const { channel, server } = data
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      name: '',
       type: channel?.type || ChannelType.TEXT,
     },
-  });
+  })
 
   useEffect(() => {
     if (channel) {
-      form.setValue("name", channel.name);
-      form.setValue("type", channel.type);
+      form.setValue('name', channel.name)
+      form.setValue('type', channel.type)
     }
-  }, [form, channel]);
+  }, [form, channel])
 
-  const isLoading = form.formState.isSubmitting;
+  const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -79,27 +79,27 @@ export const BuyCardModal = () => {
         query: {
           serverId: server?.id,
         },
-      });
-      await axios.patch(url, values);
-      
-      form.reset();
-      router.refresh();
-      onClose();
+      })
+      await axios.patch(url, values)
+
+      form.reset()
+      router.refresh()
+      onClose()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const handleClose = () => {
-    form.reset();
-    onClose();
-  };
+    form.reset()
+    onClose()
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-stone-800 rounded-[10px] from-[#2e272c] to-[#151415] text-black overflow-hidden p-5">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold"></DialogTitle>
+      <DialogContent className="overflow-hidden rounded-[10px] bg-stone-800 from-[#2e272c] to-[#151415] p-5 text-black">
+        <DialogHeader className="px-6 pt-8">
+          <DialogTitle className="text-center text-2xl font-bold"></DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -109,7 +109,7 @@ export const BuyCardModal = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-stone-500 font-sans font-extralight">
+                    <FormLabel className="font-sans font-extralight text-stone-500">
                       Price
                     </FormLabel>
                     <FormControl>
@@ -117,11 +117,11 @@ export const BuyCardModal = () => {
                         <img
                           src="/images/market/Mark-gr.svg"
                           alt="price"
-                          className="absolute mx-[10px] w-[20px] h-[20px]"
+                          className="absolute mx-[10px] h-[20px] w-[20px]"
                         />
                         <Input
                           disabled
-                          className="bg-stone-800 border border-white placeholder-white focus-visible:ring-0 focus-visible:ring-offset-0 relative pl-[40px] "
+                          className="relative border border-white bg-stone-800 pl-[40px] placeholder-white focus-visible:ring-0 focus-visible:ring-offset-0 "
                           placeholder="85"
                           {...field}
                         />
@@ -136,21 +136,23 @@ export const BuyCardModal = () => {
                 name="type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-stone-500 font-sans font-extralight">Expiration Date</FormLabel>
+                    <FormLabel className="font-sans font-extralight text-stone-500">
+                      Expiration Date
+                    </FormLabel>
                     <Select
                       disabled={isLoading}
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl className="text-white">
-                        <div className="flex items-center relative">
+                        <div className="relative flex items-center">
                           <CalendarIcon className="absolute ml-[10px] text-white" />
-                          <SelectTrigger className="bg-neutral-900 border-0 focus:ring-0 text-white ring-offset-0 focus:ring-offset-0 capitalize outline-none relative">
+                          <SelectTrigger className="relative border-0 bg-neutral-900 capitalize text-white outline-none ring-offset-0 focus:ring-0 focus:ring-offset-0">
                             <SelectValue placeholder="Select a expiration date" />
                           </SelectTrigger>
                         </div>
                       </FormControl>
-                      <SelectContent >
+                      <SelectContent>
                         {expirationDates.map((type) => (
                           <SelectItem
                             key={type.value}
@@ -169,8 +171,8 @@ export const BuyCardModal = () => {
               <Button
                 variant="primary"
                 disabled={isLoading}
-                className="w-full my-[30px] bg-cyan-400 text-black"
-                onClick={() => onOpen("confirm")}
+                className="my-[30px] w-full bg-cyan-400 text-black"
+                onClick={() => onOpen('confirm')}
               >
                 Confirm the offer
               </Button>
@@ -180,13 +182,13 @@ export const BuyCardModal = () => {
         <DialogFooter className="h-[30px]"></DialogFooter>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
 const expirationDates = [
-  { value: "30 days" },
-  { value: "3 months" },
-  { value: "6 months" },
-  { value: "1 year" },
-  { value: "forever" },
-];
+  { value: '30 days' },
+  { value: '3 months' },
+  { value: '6 months' },
+  { value: '1 year' },
+  { value: 'forever' },
+]

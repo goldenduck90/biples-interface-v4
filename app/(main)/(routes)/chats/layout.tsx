@@ -1,25 +1,25 @@
-import { NavigationSidebar } from "@/components/navigation/navigation-sidebar";
-import dynamic from "next/dynamic";
+import { NavigationSidebar } from '@/components/navigation/navigation-sidebar'
+import dynamic from 'next/dynamic'
 
 const DynamicComponentWithNoSSR = dynamic(
-  () => import("@/components/top-header-wallet-icons"),
-  { ssr: false }
-);
+  () => import('@/components/top-header-wallet-icons'),
+  { ssr: false },
+)
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-      <div className="flex w-full h-full mx-auto z-30 bg-[#111214] gap-5">
-        <section className="flex flex-col flex-1 w-full gap-5">
-          <DynamicComponentWithNoSSR />
+    <div className="z-30 mx-auto flex h-full w-full gap-5 bg-[#111214]">
+      <section className="flex w-full flex-1 flex-col gap-5">
+        <DynamicComponentWithNoSSR />
 
-          <div className="bg-white/5 border rounded-[25px] flex h-fit w-full z-30 flex-col ">
-            <NavigationSidebar />
-          </div>
+        <div className="z-30 flex h-fit w-full flex-col rounded-[25px] border bg-white/5 ">
+          <NavigationSidebar />
+        </div>
 
-          <main className={`h-full`}>{children}</main>
-        </section>
-      </div>
-  );
-};
+        <main className={`h-full`}>{children}</main>
+      </section>
+    </div>
+  )
+}
 
-export default MainLayout;
+export default MainLayout

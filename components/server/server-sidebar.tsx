@@ -1,42 +1,42 @@
-import { ChannelType, MemberRole } from "@prisma/client";
-import { redirect } from "next/navigation";
-import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
+import { ChannelType, MemberRole } from '@prisma/client'
+import { redirect } from 'next/navigation'
+import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from 'lucide-react'
 
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import { currentProfile } from "@/lib/current-profile";
-import prisma from "@/lib/prisma";
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Separator } from '@/components/ui/separator'
+import { currentProfile } from '@/lib/current-profile'
+import prisma from '@/lib/prisma'
 
-import { ServerHeader } from "./server-header";
-import { ServerSearch } from "./server-search";
-import { ServerSection } from "./server-section";
-import { ServerChannel } from "./server-channel";
-import { ServerMember } from "./server-member";
-import { ServerRightRooms } from "./servers-right-rooms";
+import { ServerHeader } from './server-header'
+import { ServerSearch } from './server-search'
+import { ServerSection } from './server-section'
+import { ServerChannel } from './server-channel'
+import { ServerMember } from './server-member'
+import { ServerRightRooms } from './servers-right-rooms'
 
 interface ServerSidebarProps {
-  serverId: string;
+  serverId: string
 }
 
 const iconMap = {
-  [ChannelType.TEXT]: <Hash className="w-4 h-4 mr-2" />,
-  [ChannelType.AUDIO]: <Mic className="w-4 h-4 mr-2" />,
-  [ChannelType.VIDEO]: <Video className="w-4 h-4 mr-2" />,
-};
+  [ChannelType.TEXT]: <Hash className="mr-2 h-4 w-4" />,
+  [ChannelType.AUDIO]: <Mic className="mr-2 h-4 w-4" />,
+  [ChannelType.VIDEO]: <Video className="mr-2 h-4 w-4" />,
+}
 
 const roleIconMap = {
   [MemberRole.GUEST]: null,
   [MemberRole.MODERATOR]: (
-    <ShieldCheck className="w-4 h-4 mr-2 text-indigo-500" />
+    <ShieldCheck className="mr-2 h-4 w-4 text-indigo-500" />
   ),
-  [MemberRole.ADMIN]: <ShieldAlert className="w-4 h-4 mr-2 text-rose-500" />,
-};
+  [MemberRole.ADMIN]: <ShieldAlert className="mr-2 h-4 w-4 text-rose-500" />,
+}
 
 export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
-  const profile = await currentProfile();
+  const profile = await currentProfile()
 
   if (!profile) {
-    return redirect("/");
+    return redirect('/')
   }
 
   const server = await prisma.server.findUnique({
@@ -46,7 +46,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     include: {
       channels: {
         orderBy: {
-          createdAt: "asc",
+          createdAt: 'asc',
         },
       },
       members: {
@@ -54,36 +54,36 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
           profile: true,
         },
         orderBy: {
-          role: "asc",
+          role: 'asc',
         },
       },
     },
-  });
+  })
 
   const textChannels = server?.channels.filter(
-    (channel) => channel.type === ChannelType.TEXT
-  );
+    (channel) => channel.type === ChannelType.TEXT,
+  )
   const audioChannels = server?.channels.filter(
-    (channel) => channel.type === ChannelType.AUDIO
-  );
+    (channel) => channel.type === ChannelType.AUDIO,
+  )
   const videoChannels = server?.channels.filter(
-    (channel) => channel.type === ChannelType.VIDEO
-  );
+    (channel) => channel.type === ChannelType.VIDEO,
+  )
   const members = server?.members.filter(
-    (member) => member.profileId !== profile.id
-  );
+    (member) => member.profileId !== profile.id,
+  )
 
   if (!server) {
-    return redirect("/");
+    return redirect('/')
   }
 
   const role = server.members.find(
-    (member) => member.profileId === profile.id
-  )?.role;
+    (member) => member.profileId === profile.id,
+  )?.role
 
   return (
-    <div className="absolute flex h-[80px] top-0 pt-2 left-0 right-0 rounded-t-2xl px-5 z-20 flex-row items-center justify-between w-full text-primary">
-      <div className="flex-1 w-full">
+    <div className="absolute left-0 right-0 top-0 z-20 flex h-[80px] w-full flex-row items-center justify-between rounded-t-2xl px-5 pt-2 text-primary">
+      <div className="w-full flex-1">
         <ServerHeader server={server} role={role} />
       </div>
 
@@ -98,8 +98,8 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
 /*
 

@@ -1,11 +1,10 @@
 {
   // configuration for javascript files
   "extends": [
-    "next/core-web-vitals", // needed to avoid warning in next.js build: 'The Next.js plugin was not detected in your ESLint configuration'
+    "next/core-web-vitals", // needed to avoid warn in next.js build: 'The Next.js plugin was not detected in your ESLint configuration'
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "react/no-unescaped-entities": 0,
     "prettier/prettier": [
       "error",
       {
@@ -47,10 +46,10 @@
           }
         ],
         "@typescript-eslint/comma-dangle": "off", // Avoid conflict rule between Eslint and Prettier
-        "@typescript-eslint/consistent-type-imports": "error", // Ensure `import type` is used when it's necessary
+        "@typescript-eslint/consistent-type-imports": "warn", // Ensure `import type` is used when it's necessary
         "import/prefer-default-export": "off", // Named export is easier to refactor automatically
-        "simple-import-sort/imports": "error", // Import configuration for `eslint-plugin-simple-import-sort`
-        "simple-import-sort/exports": "error", // Export configuration for `eslint-plugin-simple-import-sort`
+        "simple-import-sort/imports": "warn", // Import configuration for `eslint-plugin-simple-import-sort`
+        "simple-import-sort/exports": "warn", // Export configuration for `eslint-plugin-simple-import-sort`
         "react/function-component-definition": [
           "error",
           {
@@ -62,9 +61,9 @@
           }
         ],
         "@typescript-eslint/no-unused-vars": "off",
-        "unused-imports/no-unused-imports": "error",
+        "unused-imports/no-unused-imports": "warn",
         "unused-imports/no-unused-vars": [
-          "error",
+          "warn",
           {
             "argsIgnorePattern": "^_"
           }
