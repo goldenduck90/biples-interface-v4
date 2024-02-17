@@ -59,7 +59,7 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
   )
 
   return (
-    <div className="z-30 flex h-full flex-col flex-col gap-5 rounded-[25px] bg-[#111214] sm:w-[100%] md:w-[100%] xl:w-[1050px] 2xl:w-[1600px]">
+    <div className="z-30 flex h-full flex-col gap-5 rounded-[25px] bg-[#111214] sm:w-[100%] md:w-[100%] xl:w-[1050px] 2xl:w-[1600px]">
       <DynamicComponentWithNoSSR />
       {channel.type === ChannelType.TEXT && channel.name !== 'Marketplace' && (
         <>

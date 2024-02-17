@@ -15,6 +15,7 @@ import { Button } from '../ui/button'
 import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu'
 import { SocketIndicator } from '../socket-indicator'
 import { useDetectClickOutside } from 'react-detect-click-outside'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 
 interface ServerHeaderProps {
   server: ServerWithMembersWithProfiles
@@ -114,7 +115,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
                   <div className="flex-1 rounded-full bg-white/5 px-3 py-2 font-light">
                     <div className="flex items-center gap-2 text-xs font-medium text-white">
                       <div className="h-3 w-3 rounded-full bg-green-700"></div>
-                      200
+                      {server.members.length}
                     </div>
                   </div>
                 </div>
@@ -135,11 +136,19 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
               </div>
               <div className="flex items-center justify-center p-4 pt-2">
                 <div className="flex w-full items-center justify-between rounded-full bg-white/5 px-3 py-2">
-                  <div className="w-[125px]  overflow-x-scroll text-sm font-light">
-                    bp.me/claynosaurz
-                  </div>
+                  <ScrollArea className="w-[125px]">
+                    <div className="text-sm font-light">
+                      bp.me/claynosaurzscrollbartest
+                    </div>
+                    <ScrollBar
+                      orientation="horizontal"
+                      className="rounded bg-white/10"
+                    />
+                  </ScrollArea>
                   <div
-                    onClick={() => copyToClipboard('bp.me/claynosaurz')}
+                    onClick={() =>
+                      copyToClipboard('bp.me/claynosaurzscrollbartest')
+                    }
                     className="cursor-pointer hover:opacity-80"
                   >
                     {textCopied ? (
@@ -165,7 +174,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
               {isAdmin && (
                 <button
                   onClick={() => onOpen('deleteServer', { server })}
-                  className="cursor-pointer px-3 py-2 text-sm text-rose-500"
+                  className="flex cursor-pointer items-center justify-between px-3 py-2 text-sm text-rose-500"
                 >
                   Delete Server
                   <Trash className="ml-auto h-4 w-4" />
