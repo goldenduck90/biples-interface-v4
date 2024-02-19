@@ -82,7 +82,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
   )?.role
 
   return (
-    <div className="absolute left-0 right-0 top-0 z-20 flex h-[80px] w-full flex-row items-center justify-between rounded-t-2xl px-5 pt-2 text-primary">
+    <div className="flex w-full flex-row items-center justify-between rounded-t-2xl pt-2 text-primary">
       <div className="w-full flex-1">
         <ServerHeader server={server} role={role} />
       </div>

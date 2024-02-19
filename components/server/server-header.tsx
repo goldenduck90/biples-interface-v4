@@ -1,21 +1,19 @@
 'use client'
 
-import { ServerWithMembersWithProfiles } from '@/types'
 import { MemberRole } from '@prisma/client'
+import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronDown, Trash } from 'lucide-react'
-import { FaCheckCircle, FaCog } from 'react-icons/fa'
-import { IoCloseSharp, IoCopy } from 'react-icons/io5'
-import { useModal } from '@/hooks/use-modal-store'
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FaUser } from 'react-icons/fa'
-import { BsTwitterX } from 'react-icons/bs'
-import { TbWorld } from 'react-icons/tb'
-import { Button } from '../ui/button'
-import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu'
-import { SocketIndicator } from '../socket-indicator'
 import { useDetectClickOutside } from 'react-detect-click-outside'
+import { BsTwitterX } from 'react-icons/bs'
+import { FaCheckCircle, FaCog } from 'react-icons/fa'
+import { FaUser } from 'react-icons/fa'
+import { IoCloseSharp, IoCopy } from 'react-icons/io5'
+import { TbWorld } from 'react-icons/tb'
+
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { useModal } from '@/hooks/use-modal-store'
+import type { ServerWithMembersWithProfiles } from '@/types'
 
 interface ServerHeaderProps {
   server: ServerWithMembersWithProfiles

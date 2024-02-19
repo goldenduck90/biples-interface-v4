@@ -1,20 +1,20 @@
-import { redirect } from 'next/navigation'
 import { ChannelType, MemberRole } from '@prisma/client'
+import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from 'lucide-react'
+import { redirect } from 'next/navigation'
 
 import { ChatHeader } from '@/components/chat/chat-header'
 import { ChatInput } from '@/components/chat/chat-input'
 import { ChatMessages } from '@/components/chat/chat-messages'
 import { MediaRoom } from '@/components/media-room'
+import { NavigationSidebar } from '@/components/navigation/navigation-sidebar'
+import { NavigationMarketSidebar } from '@/components/navigation/navigation-sidebar-market'
+import { ServerHeader } from '@/components/server/server-header'
+import { ServerRightRooms } from '@/components/server/servers-right-rooms'
 import { currentProfile } from '@/lib/current-profile'
 import prisma from '@/lib/prisma'
-import { ServerRightRooms } from '@/components/server/servers-right-rooms'
-import { ServerHeader } from '@/components/server/server-header'
-import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from 'lucide-react'
-import { NavigationMarketSidebar } from '@/components/navigation/navigation-sidebar-market'
-import dynamic from 'next/dynamic'
+
 import LastSold from './ServerMarketplace/lastSold'
 import Trending from './ServerMarketplace/trending'
-import { NavigationSidebar } from '@/components/navigation/navigation-sidebar'
 
 interface ChannelIdPageProps {
   params: {
@@ -53,64 +53,60 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
   const handleNewMessage = (newMessage: any) => {
     console.log(newMessage)
   }
-  const DynamicComponentWithNoSSR = dynamic(
-    () => import('@/components/top-header-wallet-icons'),
-    { ssr: false },
-  )
 
   return (
-    <div className="z-30 flex h-full flex-col gap-5 rounded-[25px] bg-[#111214] sm:w-[100%] md:w-[100%] xl:w-[1050px] 2xl:w-[1600px]">
-      <DynamicComponentWithNoSSR />
+    <div className="flex h-full flex-col gap-5">
       {channel.type === ChannelType.TEXT && channel.name !== 'Marketplace' && (
         <>
           <div className="z-30 flex h-fit w-full flex-col rounded-[25px] border bg-white/5 ">
             <NavigationSidebar />
           </div>
-
-          <ChatHeader
-            name={channel.name}
-            serverId={channel.serverId}
-            type="channel"
-          />
-          <ChatMessages
-            member={member}
-            name={channel.name}
-            chatId={channel.id}
-            type="channel"
-            apiUrl="/api/messages"
-            socketUrl="/api/socket/messages"
-            socketQuery={{
-              channelId: channel.id,
-              serverId: channel.serverId,
-            }}
-            paramKey="channelId"
-            paramValue={channel.id}
-          />
-          {channel.name === 'Announcements' && isAdmin && (
-            <>
-              <ChatInput
-                name={channel.name}
-                type="channel"
-                apiUrl="/api/socket/messages"
-                query={{
-                  channelId: channel.id,
-                  serverId: channel.serverId,
-                }}
-              />
-            </>
-          )}
-          {channel.name !== 'Announcements' &&
-            channel.name !== 'Marketplace' && (
-              <ChatInput
-                name={channel.name}
-                type="channel"
-                apiUrl="/api/socket/messages"
-                query={{
-                  channelId: channel.id,
-                  serverId: channel.serverId,
-                }}
-              />
+          <div className="flex h-full flex-col rounded-[25px] bg-white/5">
+            <ChatHeader
+              name={channel.name}
+              serverId={channel.serverId}
+              type="channel"
+            />
+            <ChatMessages
+              member={member}
+              name={channel.name}
+              chatId={channel.id}
+              type="channel"
+              apiUrl="/api/messages"
+              socketUrl="/api/socket/messages"
+              socketQuery={{
+                channelId: channel.id,
+                serverId: channel.serverId,
+              }}
+              paramKey="channelId"
+              paramValue={channel.id}
+            />
+            {channel.name === 'Announcements' && isAdmin && (
+              <>
+                <ChatInput
+                  name={channel.name}
+                  type="channel"
+                  apiUrl="/api/socket/messages"
+                  query={{
+                    channelId: channel.id,
+                    serverId: channel.serverId,
+                  }}
+                />
+              </>
             )}
+            {channel.name !== 'Announcements' &&
+              channel.name !== 'Marketplace' && (
+                <ChatInput
+                  name={channel.name}
+                  type="channel"
+                  apiUrl="/api/socket/messages"
+                  query={{
+                    channelId: channel.id,
+                    serverId: channel.serverId,
+                  }}
+                />
+              )}
+          </div>
         </>
       )}
       {channel.name === 'Marketplace' && (

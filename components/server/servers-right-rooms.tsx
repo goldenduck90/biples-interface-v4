@@ -1,7 +1,6 @@
 'use client'
 
 import { ChannelType, MemberRole } from '@prisma/client'
-import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { useParams } from 'next/navigation'
@@ -16,6 +15,7 @@ import { HiUsers } from 'react-icons/hi2'
 import { IoStorefront } from 'react-icons/io5'
 import { RiMegaphoneFill } from 'react-icons/ri'
 
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { useModal } from '@/hooks/use-modal-store'
 import { cn } from '@/lib/utils'
 import type { ServerWithMembersWithProfiles } from '@/types'
@@ -169,7 +169,7 @@ export const ServerRightRooms = ({
               variants={dropdownVariants}
               transition={{ duration: 0.2 }}
               ref={ref}
-              className="absolute left-0 top-full z-10  max-h-[500px] w-full overflow-y-scroll rounded-b-2xl bg-[#2C2D2E]"
+              className="absolute left-0 top-full z-10  max-h-[500px] w-full rounded-b-2xl bg-[#2C2D2E]"
               style={{ originY: 0 }}
             >
               <ScrollArea>
@@ -191,7 +191,7 @@ export const ServerRightRooms = ({
 
                 <div className="my-5 h-[1px] w-full bg-[#53ACFF] opacity-20"></div>
 
-                <div className="overflow-y-scroll p-0">
+                <div className="p-0">
                   <ScrollArea className="flex-1 px-3">
                     {!!nonDefaultChannels?.length && (
                       <div className="mb-2">
@@ -249,8 +249,17 @@ export const ServerRightRooms = ({
                         </div>
                       </div>
                     )}
+
+                    <ScrollBar
+                      orientation="vertical"
+                      className="rounded bg-white/10"
+                    />
                   </ScrollArea>
                 </div>
+                <ScrollBar
+                  orientation="vertical"
+                  className="rounded bg-white/10"
+                />
               </ScrollArea>
             </motion.div>
           )}

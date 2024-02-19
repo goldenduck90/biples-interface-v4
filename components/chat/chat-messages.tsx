@@ -1,16 +1,18 @@
 'use client'
 
-import { Fragment, useRef, ElementRef, useState, useEffect } from 'react'
+import type { Member, Message, Profile } from '@prisma/client'
 import { format } from 'date-fns'
-import { Member, Message, Profile } from '@prisma/client'
 import { Loader2, ServerCrash } from 'lucide-react'
+import type { ElementRef } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { useChatQuery } from '@/hooks/use-chat-query'
-import { useChatSocket } from '@/hooks/use-chat-socket'
 import { useChatScroll } from '@/hooks/use-chat-scroll'
+import { useChatSocket } from '@/hooks/use-chat-socket'
 
-import { ChatWelcome } from './chat-welcome'
 import { ChatItem } from './chat-item'
+import { ChatWelcome } from './chat-welcome'
 
 const DATE_FORMAT = 'd MMM yyyy, HH:mm'
 
@@ -106,7 +108,7 @@ export const ChatMessages = ({
   return (
     <div
       ref={chatRef}
-      className="flex max-h-[calc(100vh-10rem)] flex-1 flex-col overflow-y-scroll py-4"
+      className="flex max-h-[calc(100vh-23.5rem)] flex-1 flex-col py-4"
     >
       {!hasNextPage && <div className="flex-1" />}
       {!hasNextPage && <ChatWelcome type={type} name={name} />}
@@ -124,27 +126,30 @@ export const ChatMessages = ({
           )}
         </div>
       )}
-      <div className="mt-auto flex flex-col-reverse ">
-        {data?.pages?.map((group, i) => (
-          <Fragment key={i}>
-            {group.items.map((message: MessageWithMemberWithProfile) => (
-              <ChatItem
-                key={message.id}
-                id={message.id}
-                currentMember={member}
-                member={message.member}
-                content={message.content}
-                fileUrl={message.fileUrl}
-                deleted={message.deleted}
-                timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
-                isUpdated={message.updatedAt !== message.createdAt}
-                socketUrl={socketUrl}
-                socketQuery={socketQuery}
-              />
-            ))}
-          </Fragment>
-        ))}
-      </div>
+      <ScrollArea>
+        <div className="mt-auto flex flex-col-reverse">
+          {data?.pages?.map((group, i) => (
+            <Fragment key={i}>
+              {group.items.map((message: MessageWithMemberWithProfile) => (
+                <ChatItem
+                  key={message.id}
+                  id={message.id}
+                  currentMember={member}
+                  member={message.member}
+                  content={message.content}
+                  fileUrl={message.fileUrl}
+                  deleted={message.deleted}
+                  timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
+                  isUpdated={message.updatedAt !== message.createdAt}
+                  socketUrl={socketUrl}
+                  socketQuery={socketQuery}
+                />
+              ))}
+            </Fragment>
+          ))}
+        </div>
+        <ScrollBar orientation="vertical" className="rounded bg-white/10" />
+      </ScrollArea>
       <div ref={bottomRef} />
     </div>
   )
