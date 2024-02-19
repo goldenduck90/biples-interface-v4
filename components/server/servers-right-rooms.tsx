@@ -1,30 +1,27 @@
 'use client'
 
-import { useDetectClickOutside } from 'react-detect-click-outside'
-
-import { ServerWithMembersWithProfiles } from '@/types'
 import { ChannelType, MemberRole } from '@prisma/client'
-import { ChevronDown } from 'lucide-react'
-import { FaCheckCircle, FaCog } from 'react-icons/fa'
-import { IoCloseSharp, IoCopy } from 'react-icons/io5'
-import { useModal } from '@/hooks/use-modal-store'
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { BsChatLeftTextFill } from 'react-icons/bs'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
-import { ServerSection } from './server-section'
-import { ServerChannel } from './server-channel'
-import { ServerMember } from './server-member'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
+import { useParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useDetectClickOutside } from 'react-detect-click-outside'
+import { BsChatLeftTextFill } from 'react-icons/bs'
 import { FaMicrophone } from 'react-icons/fa'
-import { IoStorefront } from 'react-icons/io5'
+import { FaPlus } from 'react-icons/fa'
+import { FaHashtag } from 'react-icons/fa'
 import { FaCamera } from 'react-icons/fa6'
 import { HiUsers } from 'react-icons/hi2'
-import { cn } from '@/lib/utils'
-import { FaPlus } from 'react-icons/fa'
-import { IoClose } from 'react-icons/io5'
-import { useParams } from 'next/navigation'
-import { FaHashtag } from 'react-icons/fa'
+import { IoStorefront } from 'react-icons/io5'
 import { RiMegaphoneFill } from 'react-icons/ri'
+
+import { useModal } from '@/hooks/use-modal-store'
+import { cn } from '@/lib/utils'
+import type { ServerWithMembersWithProfiles } from '@/types'
+
+import { ServerChannel } from './server-channel'
+import { ServerMember } from './server-member'
 
 const DEFAULT_CHANNELS = [
   'Announcements',
@@ -120,12 +117,12 @@ export const ServerRightRooms = ({
   }
 
   return (
-    <div className="relative flex items-center gap-10 ">
+    <div className="relative flex items-center">
       <div
         className={
           open
             ? 'flex w-[200px] flex-col items-start rounded-2xl rounded-b-none border border-b-0 bg-white/5 transition-all delay-0'
-            : 'flex w-[200px] flex-col items-start rounded-2xl border bg-white/5 transition-all delay-0'
+            : 'flex flex-col items-start rounded-2xl border bg-white/5 transition-all delay-0'
         }
       >
         {open ? (
@@ -262,9 +259,3 @@ export const ServerRightRooms = ({
     </div>
   )
 }
-
-/*
-
-       
-
-      */
