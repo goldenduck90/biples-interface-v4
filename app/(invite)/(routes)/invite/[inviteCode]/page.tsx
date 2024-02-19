@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 
-import prisma from '@/lib/prisma'
 import { currentProfile } from '@/lib/current-profile'
+import prisma from '@/lib/prisma'
 
 interface InviteCodePageProps {
   params: {

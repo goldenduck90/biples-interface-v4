@@ -1,7 +1,9 @@
 'use client'
+import { useEffect, useRef, useState } from 'react'
+
 import NextButton from '@/app/(main)/(routes)/marketplace/pagination/marketTrending/nextButton'
 import PrevButton from '@/app/(main)/(routes)/marketplace/pagination/marketTrending/prevButton'
-import { useState, useRef, useEffect } from 'react'
+
 import { marketCards } from './Cards'
 import { MarketCard } from './market-card'
 

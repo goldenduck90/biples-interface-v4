@@ -1,10 +1,13 @@
 'use client'
 import React from 'react'
-import Trending from './pagination/marketTrending'
-import TopCollect from './pagination/TopCollect'
+
 import { NavigationMarketPlaceSidebar } from '@/components/navigation/navigation-sidebar-maketplace'
-import SeeAll from './pagination/seeAll'
+
 import MarketCollect from './pagination/marketCollect'
+import Trending from './pagination/marketTrending'
+import SeeAll from './pagination/seeAll'
+import TopCollect from './pagination/TopCollect'
+
 const MyNFTsPage: React.FC = () => {
   return (
     <div>

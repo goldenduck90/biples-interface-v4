@@ -1,5 +1,5 @@
-import { IoInformationCircleOutline } from 'react-icons/io5'
 import { useState } from 'react'
+import { IoInformationCircleOutline } from 'react-icons/io5'
 
 export interface Activity {
   seller: string

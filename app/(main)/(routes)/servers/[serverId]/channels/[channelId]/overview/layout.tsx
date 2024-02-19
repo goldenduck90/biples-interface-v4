@@ -1,10 +1,10 @@
-import { redirect, useRouter } from 'next/navigation'
+import dynamic from 'next/dynamic'
+import { redirect } from 'next/navigation'
 
-import { ServerSidebar } from '@/components/server/server-sidebar'
+import { NavigationMarketSidebar } from '@/components/navigation/navigation-sidebar-market'
 import { currentProfile } from '@/lib/current-profile'
 import prisma from '@/lib/prisma'
-import dynamic from 'next/dynamic'
-import { NavigationMarketSidebar } from '@/components/navigation/navigation-sidebar-market'
+
 import { BackBtn } from './Backbtn'
 
 const ServerIdLayout = async ({

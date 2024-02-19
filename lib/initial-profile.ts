@@ -1,7 +1,9 @@
-import prisma from '@/lib/prisma'
-import { authOptions } from './auth'
-import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth'
+
+import prisma from '@/lib/prisma'
+
+import { authOptions } from './auth'
 
 export const initialProfile = async () => {
   const session = await getServerSession(authOptions)

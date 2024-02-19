@@ -1,10 +1,9 @@
 'use client'
-import { CommunityCard } from '@/components/cards/community-card'
-import { NavigationSidebar } from '@/components/navigation/navigation-sidebar'
 import Image from 'next/image'
 import React from 'react'
-import styled from '@emotion/styled'
-import dynamic from 'next/dynamic'
+
+import { CommunityCard } from '@/components/cards/community-card'
+
 import { communityCards } from './home-communitycards'
 
 const MyNFTsPage: React.FC = () => {

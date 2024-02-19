@@ -1,8 +1,9 @@
 'use client'
 
-import React, { use, useEffect } from 'react'
-import { appConstants } from '@/lib/constants'
 import { useWallet } from '@solana/wallet-adapter-react'
+import React, { useEffect } from 'react'
+
+import { appConstants } from '@/lib/constants'
 
 const MyNFTsPage: React.FC = () => {
   const { publicKey } = useWallet()

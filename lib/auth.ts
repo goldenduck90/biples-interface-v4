@@ -1,14 +1,14 @@
-import { NextAuthOptions } from 'next-auth'
-import { Signature } from '@/lib/signature'
-import NextAuth from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import { getCsrfToken } from 'next-auth/react'
 import type {
   GetServerSidePropsContext,
   NextApiRequest,
   NextApiResponse,
 } from 'next'
+import type { NextAuthOptions } from 'next-auth'
 import { getServerSession } from 'next-auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
+import { getCsrfToken } from 'next-auth/react'
+
+import { Signature } from '@/lib/signature'
 
 const providers = [
   CredentialsProvider({

@@ -1,5 +1,6 @@
-import { NavigationSidebar } from '@/components/navigation/navigation-sidebar'
 import dynamic from 'next/dynamic'
+
+import { NavigationSidebar } from '@/components/navigation/navigation-sidebar'
 
 const DynamicComponentWithNoSSR = dynamic(
   () => import('@/components/top-header-wallet-icons'),

@@ -1,17 +1,18 @@
 'use client'
 
-import React, { use, useEffect } from 'react'
-import { appConstants } from '@/lib/constants'
 import { useWallet } from '@solana/wallet-adapter-react'
-import Offers from './Offers/Offers'
-import Description from './Description/Description'
-import SampleOffers from './Offers/Offers.json'
-import ItemTab from './ItemTab'
+import React, { useEffect } from 'react'
+
+import { appConstants } from '@/lib/constants'
+
 import Activity from './Activity/Activity'
-import Properties from './Properties/Properties'
 import SampleActivities from './Activity/dataActivite.json'
-import OverviewBody from './profile'
+import Description from './Description/Description'
+import ItemTab from './ItemTab'
+import Offers from './Offers/Offers'
+import SampleOffers from './Offers/Offers.json'
 import Profile from './profile'
+import Properties from './Properties/Properties'
 
 const MyNFTsPage: React.FC = () => {
   const { publicKey } = useWallet()

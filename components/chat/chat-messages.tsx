@@ -126,7 +126,7 @@ export const ChatMessages = ({
           )}
         </div>
       )}
-      <ScrollArea>
+      <ScrollArea type="auto">
         <div className="mt-auto flex flex-col-reverse">
           {data?.pages?.map((group, i) => (
             <Fragment key={i}>

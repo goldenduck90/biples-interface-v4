@@ -1,21 +1,16 @@
 'use client'
 
-import { useWallet } from '@solana/wallet-adapter-react'
 import type { WalletName } from '@solana/wallet-adapter-base'
 import { WalletReadyState } from '@solana/wallet-adapter-base'
 import type { Wallet } from '@solana/wallet-adapter-react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { IoIosLogOut } from 'react-icons/io'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import { Signature } from '../../../../lib/signature'
-import { getCsrfToken, signIn, signOut, useSession } from 'next-auth/react'
+import { useWallet } from '@solana/wallet-adapter-react'
 import bs58 from 'bs58'
-import { NavigationSidebar } from '@/components/navigation/navigation-sidebar'
 import dynamic from 'next/dynamic'
-import LeftSidebarMenu from '@/components/left-sidebar-menu'
 import { redirect } from 'next/navigation'
+import { getCsrfToken, signIn, signOut, useSession } from 'next-auth/react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+
+import { Signature } from '../../../../lib/signature'
 
 const DynamicComponentWithNoSSR = dynamic(
   () => import('@/components/top-header-wallet-icons'),

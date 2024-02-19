@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation'
 
-import prisma from '@/lib/prisma'
-import { initialProfile } from '@/lib/initial-profile'
 import { InitialModal } from '@/components/modals/initial-modal'
+import { initialProfile } from '@/lib/initial-profile'
+import prisma from '@/lib/prisma'
 
 const SetupPage = async () => {
   const profile = await initialProfile()

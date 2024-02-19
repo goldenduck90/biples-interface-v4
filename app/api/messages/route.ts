@@ -1,5 +1,5 @@
+import type { Message } from '@prisma/client'
 import { NextResponse } from 'next/server'
-import { Message } from '@prisma/client'
 
 import { currentProfile } from '@/lib/current-profile'
 import prisma from '@/lib/prisma'

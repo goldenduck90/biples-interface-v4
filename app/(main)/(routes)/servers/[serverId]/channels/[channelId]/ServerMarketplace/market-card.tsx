@@ -1,8 +1,9 @@
 'use client'
 import Image from 'next/image'
-import { useModal } from '@/hooks/use-modal-store'
 import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
+
+import { useModal } from '@/hooks/use-modal-store'
 interface MarketCardProps {
   imageURL: string
   followers: string
