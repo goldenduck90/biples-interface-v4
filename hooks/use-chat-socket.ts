@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import type { Member, Message, Profile } from '@prisma/client'
 import { useQueryClient } from '@tanstack/react-query'
-import { Member, Message, Profile } from '@prisma/client'
+import { useEffect } from 'react'
 
 import { useSocket } from '@/components/providers/socket-provider'
 

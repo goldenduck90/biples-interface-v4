@@ -1,12 +1,11 @@
 import type { ChatMessage, ChatOptions } from '@livekit/components-core'
+import type { MessageFormatter } from '@livekit/components-react'
 import {
   ChatEntry,
-  MessageFormatter,
   useChat,
   useMaybeLayoutContext,
 } from '@livekit/components-react'
 import * as React from 'react'
-import { FiPlusCircle } from 'react-icons/fi'
 import { IoSend } from 'react-icons/io5'
 
 export function cloneSingleChild(

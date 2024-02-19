@@ -1,13 +1,12 @@
-import * as React from 'react'
 import type { TrackReferenceOrPlaceholder } from '@livekit/components-core'
+import type { UseParticipantsOptions } from '@livekit/components-react'
 import {
   TrackLoop,
-  UseParticipantsOptions,
   useGridLayout,
   usePagination,
   useSwipe,
 } from '@livekit/components-react'
-import { CustomPaginationControl } from './custom-pagination-control'
+import * as React from 'react'
 
 /** @public */
 export interface GridLayoutProps

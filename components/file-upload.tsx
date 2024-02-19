@@ -1,12 +1,12 @@
 'use client'
 
+import '@uploadthing/react/styles.css'
+
 import { FileIcon, X } from 'lucide-react'
 import Image from 'next/image'
+import { FaCamera } from 'react-icons/fa6'
 
 import { UploadDropzone } from '@/lib/uploadthing'
-
-import '@uploadthing/react/styles.css'
-import { FaCamera } from 'react-icons/fa6'
 
 interface FileUploadProps {
   onChange: (url?: string) => void

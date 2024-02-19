@@ -1,16 +1,15 @@
 'use client'
 
-import React from 'react'
-import { RiHome6Fill } from 'react-icons/ri'
-import { IoMdChatbubbles } from 'react-icons/io'
-import { HiMiniUsers } from 'react-icons/hi2'
-import { RiNftFill } from 'react-icons/ri'
-import { MdStore } from 'react-icons/md'
-import { FaUsers } from 'react-icons/fa6'
-import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
-import { ProfileDrawer } from './profil-drawer-server'
+import { usePathname } from 'next/navigation'
+import React from 'react'
+import { FaUsers } from 'react-icons/fa6'
+import { HiMiniUsers } from 'react-icons/hi2'
+import { IoMdChatbubbles } from 'react-icons/io'
+import { MdStore } from 'react-icons/md'
+import { RiHome6Fill } from 'react-icons/ri'
+import { RiNftFill } from 'react-icons/ri'
+
 import { cn } from '@/lib/utils'
 
 const LeftSidebarMenuItemsList: React.FC = () => {

@@ -1,26 +1,15 @@
-import * as React from 'react'
-import type { Participant, TrackPublication } from 'livekit-client'
-import { Track } from 'livekit-client'
 import type {
   ParticipantClickEvent,
   TrackReferenceOrPlaceholder,
 } from '@livekit/components-core'
+import { isTrackReferencePinned } from '@livekit/components-core'
 import {
-  isTrackReference,
-  isTrackReferencePinned,
-} from '@livekit/components-core'
-import {
-  AudioTrack,
-  ConnectionQualityIndicator,
-  FocusToggle,
   LockLockedIcon,
   ParticipantContext,
   ParticipantName,
-  ParticipantPlaceholder,
   ScreenShareIcon,
   TrackMutedIndicator,
   TrackRefContext,
-  VideoTrack,
   useEnsureParticipant,
   useFeatureContext,
   useIsEncrypted,
@@ -29,7 +18,9 @@ import {
   useMaybeTrackRefContext,
   useParticipantTile,
 } from '@livekit/components-react'
-import { SpeakerInfo } from 'livekit-server-sdk/dist/proto/livekit_models'
+import type { Participant, TrackPublication } from 'livekit-client'
+import { Track } from 'livekit-client'
+import * as React from 'react'
 import { FaMicrophone } from 'react-icons/fa'
 
 /**

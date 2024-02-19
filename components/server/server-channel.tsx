@@ -1,18 +1,20 @@
 'use client'
 
-import { Channel, ChannelType, MemberRole, Server } from '@prisma/client'
+import type { Channel, Server } from '@prisma/client'
+import { ChannelType, MemberRole } from '@prisma/client'
 import { Edit, Hash, Lock, Mic, Trash, Video } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
-
-import { cn } from '@/lib/utils'
-import { ActionTooltip } from '@/components/action-tooltip'
-import { ModalType, useModal } from '@/hooks/use-modal-store'
 import { BsChatLeftTextFill } from 'react-icons/bs'
-import { FaCamera, FaMicrophone } from 'react-icons/fa6'
-import { IoStorefront } from 'react-icons/io5'
-import { HiUsers } from 'react-icons/hi2'
 import { FaHashtag } from 'react-icons/fa'
+import { FaCamera, FaMicrophone } from 'react-icons/fa6'
+import { HiUsers } from 'react-icons/hi2'
+import { IoStorefront } from 'react-icons/io5'
 import { RiMegaphoneFill } from 'react-icons/ri'
+
+import { ActionTooltip } from '@/components/action-tooltip'
+import type { ModalType } from '@/hooks/use-modal-store'
+import { useModal } from '@/hooks/use-modal-store'
+import { cn } from '@/lib/utils'
 
 interface ServerChannelProps {
   channel: Channel

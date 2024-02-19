@@ -1,7 +1,7 @@
 'use client'
 
-import React, { createContext, useContext } from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
+import React, { createContext } from 'react'
 
 export const WalletContext = createContext<any>(null)
 

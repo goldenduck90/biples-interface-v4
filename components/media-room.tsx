@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { LiveKitRoom, VideoConference } from '@livekit/components-react'
 import '@livekit/components-styles'
-import { Channel } from '@prisma/client'
 
+import { LiveKitRoom } from '@livekit/components-react'
 import { Loader2 } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
+
 import { CustomVideoConference } from './custom-videoconference'
 
 interface MediaRoomProps {

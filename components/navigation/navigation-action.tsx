@@ -1,19 +1,15 @@
 'use client'
 
-import { DoorOpen, PenSquare, Plus } from 'lucide-react'
+import { Icon } from '@iconify/react'
+import { Plus } from 'lucide-react'
 
-import { ActionTooltip } from '@/components/action-tooltip'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useModal } from '@/hooks/use-modal-store'
-import { Icon } from '@iconify/react'
 export const NavigationAction = () => {
   const { onOpen } = useModal()
 

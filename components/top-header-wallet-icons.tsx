@@ -1,16 +1,16 @@
 'use client'
 
-import React, { useState } from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
+import { redirect } from 'next/navigation'
+import { signOut } from 'next-auth/react'
+import React, { useState } from 'react'
 import { FaEnvelope } from 'react-icons/fa'
 import { FaBell } from 'react-icons/fa'
 import { FaCog } from 'react-icons/fa'
-import { arDZ } from 'date-fns/locale'
-import { TbLogout } from 'react-icons/tb'
-import { IoCopy } from 'react-icons/io5'
 import { FaCheckCircle } from 'react-icons/fa'
-import { redirect } from 'next/navigation'
-import { signOut } from 'next-auth/react'
+import { IoCopy } from 'react-icons/io5'
+import { TbLogout } from 'react-icons/tb'
+
 import { SocketIndicator } from './socket-indicator'
 
 interface TopHeaderWalletIconsProps {}

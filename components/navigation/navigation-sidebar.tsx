@@ -1,15 +1,12 @@
 import { redirect } from 'next/navigation'
+import { MdArrowForward } from 'react-icons/md'
 
-import { ModeToggle } from '@/components/mode-toggle'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Separator } from '@/components/ui/separator'
 import { currentProfile } from '@/lib/current-profile'
 import prisma from '@/lib/prisma'
-import { IoSearch } from 'react-icons/io5'
+
 import { NavigationAction } from './navigation-action'
 import { NavigationItem } from './navigation-item'
-import { useWallet } from '@solana/wallet-adapter-react'
-import { MdArrowForward } from 'react-icons/md'
 
 export const NavigationSidebar = async () => {
   const profile = await currentProfile()

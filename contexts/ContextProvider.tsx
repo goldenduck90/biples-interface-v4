@@ -1,21 +1,24 @@
 'use client'
 
-import { WalletAdapterNetwork, WalletError } from '@solana/wallet-adapter-base'
+import type { WalletError } from '@solana/wallet-adapter-base'
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base'
 import {
   ConnectionProvider,
   WalletProvider,
 } from '@solana/wallet-adapter-react'
 import { WalletModalProvider as ReactUIWalletModalProvider } from '@solana/wallet-adapter-react-ui'
 import {
+  LedgerWalletAdapter,
   PhantomWalletAdapter,
   SolflareWalletAdapter,
   TorusWalletAdapter,
-  LedgerWalletAdapter,
   // SlopeWalletAdapter,
 } from '@solana/wallet-adapter-wallets'
+import type { FC, ReactNode } from 'react'
+import { useCallback, useMemo } from 'react'
 
-import { FC, ReactNode, useCallback, useMemo } from 'react'
 import { AutoConnectProvider, useAutoConnect } from './AutoConnectProvider'
+
 const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const { autoConnect } = useAutoConnect()
   const network = WalletAdapterNetwork.Mainnet

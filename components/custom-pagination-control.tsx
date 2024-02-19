@@ -1,6 +1,6 @@
-import * as React from 'react'
 import { createInteractingObservable } from '@livekit/components-core'
-import { usePagination } from '@livekit/components-react'
+import type { usePagination } from '@livekit/components-react'
+import * as React from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 export interface PaginationControlProps

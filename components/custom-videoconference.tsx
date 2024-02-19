@@ -10,34 +10,29 @@ import {
   isWeb,
   log,
 } from '@livekit/components-core'
-import { RoomEvent, Track } from 'livekit-client'
-import * as React from 'react'
-import { IoClose } from 'react-icons/io5'
-
+import type { MessageFormatter } from '@livekit/components-react'
 import {
-  Chat,
-  ChatToggle,
-  ControlBar,
-  MessageFormatter,
   useCreateLayoutContext,
   usePinnedTracks,
   useTracks,
 } from '@livekit/components-react'
-
 import {
   CarouselLayout,
   ConnectionStateToast,
   FocusLayout,
   FocusLayoutContainer,
-  GridLayout,
   LayoutContextProvider,
   ParticipantTile,
   RoomAudioRenderer,
 } from '@livekit/components-react'
+import { RoomEvent, Track } from 'livekit-client'
+import * as React from 'react'
+import { IoClose } from 'react-icons/io5'
+
 import { CustomControlBar } from './custom-controll-bar'
 import { CustomGridLayout } from './custom-grid-layout'
-import { CustomParticipantTile } from './custom-participant-tile'
 import { CustomChatLive } from './custom-live-chat'
+import { CustomParticipantTile } from './custom-participant-tile'
 
 /**
  * @public

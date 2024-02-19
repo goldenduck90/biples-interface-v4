@@ -1,17 +1,18 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Member, MemberRole, Profile } from '@prisma/client'
+import type { Member, Profile } from '@prisma/client'
+import { MemberRole } from '@prisma/client'
 import axios from 'axios'
 import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from 'lucide-react'
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useEffect, useState } from 'react'
+// import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
-// import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
-import ReactDOM from 'react-dom'
+
 import { ActionTooltip } from '@/components/action-tooltip'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'

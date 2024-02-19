@@ -1,9 +1,9 @@
 import React from 'react'
+
+import { currentProfile } from '@/lib/current-profile'
+
 import LeftSidebarMenuItemsList from './left-sidebar-menu-items-list'
 import { ProfileDrawer } from './profil-drawer-server'
-import { useSession } from 'next-auth/react'
-import { currentProfile } from '@/lib/current-profile'
-import { redirect } from 'next/navigation'
 
 const LeftSidebarMenu: React.FC = async () => {
   const profile = await currentProfile()

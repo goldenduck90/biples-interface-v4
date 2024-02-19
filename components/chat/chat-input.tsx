@@ -1,22 +1,19 @@
 'use client'
 
-import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import type { Member, Message, Profile } from '@prisma/client'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Plus } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { FiPlusCircle } from 'react-icons/fi'
 import { IoSend } from 'react-icons/io5'
-import { ImSpinner11 } from 'react-icons/im'
-import { Member, Message, Profile } from '@prisma/client'
+import * as z from 'zod'
 
+import { EmojiPicker } from '@/components/emoji-picker'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useModal } from '@/hooks/use-modal-store'
-import { EmojiPicker } from '@/components/emoji-picker'
-import { currentProfile } from '@/lib/current-profile'
 
 type MessageWithMemberWithProfile = Message & {
   member: Member & {
