@@ -31,12 +31,15 @@ export const NftCard = ({
   const router = useRouter()
   const pathName = usePathname()
   const handleClick = (_e: any) => {
-    console.log(router)
     router.push(`${pathName}/overview`)
   }
 
-  const handleBuyCard = () => {
-    onOpen('buyCard')
+  const handleConfirmOffer = () => {
+    onOpen('confirmOffer')
+  }
+
+  const handleBuyNft = () => {
+    onOpen('buyNft')
   }
 
   return (
@@ -87,7 +90,10 @@ export const NftCard = ({
           />
           <p className="text-xl">85</p>
           <p className="text-xs text-[#6d6d6d]">Floor-155 SOL</p>
-          <div className="flex min-h-[36px] min-w-[36px] cursor-pointer items-center justify-center rounded-[10px] bg-[#50FFFF] hover:animate-pulse">
+          <div
+            onClick={handleConfirmOffer}
+            className="flex min-h-[36px] min-w-[36px] cursor-pointer items-center justify-center rounded-[10px] bg-[#50FFFF] hover:animate-pulse"
+          >
             <Image
               alt="auction icon"
               src="/images/server/marketplace/auction-black.svg"
@@ -101,7 +107,7 @@ export const NftCard = ({
         <div className="mb-1 flex items-center justify-between gap-2">
           <button
             className="w-full rounded-[10px] bg-[#50FFFF] py-1 text-xl text-black hover:animate-pulse"
-            onClick={handleBuyCard}
+            onClick={handleBuyNft}
           >
             Buy now
           </button>

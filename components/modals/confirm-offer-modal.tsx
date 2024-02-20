@@ -37,53 +37,51 @@ import {
 import { useModal } from '@/hooks/use-modal-store'
 
 const formSchema = z.object({
-  name: z
-    .string()
+  price: z
+    .number()
     .min(1, {
       message: 'Price is required.',
     })
-    .refine((name) => name !== 'general', {
-      message: "Price cannot be 'general'",
+    .refine((price) => price !== 0, {
+      message: 'Price cannot be 0',
     }),
 })
 
-export const BuyCardModal = () => {
+export const ConfirmOfferModal = () => {
   const { isOpen, onClose, type, data } = useModal()
   const router = useRouter()
   const { onOpen } = useModal()
 
-  const isModalOpen = isOpen && type === 'buyCard'
+  const isModalOpen = isOpen && type === 'confirmOffer'
   const { channel, server } = data
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      type: channel?.type || ChannelType.TEXT,
+      price: 85,
+      date: '30',
     },
   })
 
   useEffect(() => {
-    if (channel) {
-      form.setValue('name', channel.name)
-      form.setValue('type', channel.type)
-    }
+    form.setValue('price', 85)
+    form.setValue('date', '30')
   }, [form, channel])
 
   const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const url = qs.stringifyUrl({
-        url: `/api/channels/${channel?.id}`,
-        query: {
-          serverId: server?.id,
-        },
-      })
-      await axios.patch(url, values)
+      // const url = qs.stringifyUrl({
+      //   url: `/api/channels/${channel?.id}`,
+      //   query: {
+      //     serverId: server?.id,
+      //   },
+      // })
+      // await axios.patch(url, values)
 
-      form.reset()
-      router.refresh()
+      // form.reset()
+      // router.refresh()
       onClose()
     } catch (error) {
       console.log(error)
@@ -97,31 +95,27 @@ export const BuyCardModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="overflow-hidden rounded-[10px] bg-stone-800 from-[#2e272c] to-[#151415] p-5 text-black">
-        <DialogHeader className="px-6 pt-8">
-          <DialogTitle className="text-center text-2xl font-bold"></DialogTitle>
-        </DialogHeader>
+      <DialogContent className="rounded-3xl bg-zinc-800 p-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-8 px-6">
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="flex flex-col gap-6 px-6 py-6">
               <FormField
                 control={form.control}
-                name="name"
+                name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-sans font-extralight text-stone-500">
+                    <FormLabel className="font-extralight text-stone-500">
                       Price
                     </FormLabel>
                     <FormControl>
                       <div className="flex items-center">
                         <img
-                          src="/images/market/Mark-gr.svg"
+                          src="/images/server/marketplace/sol-grey.svg"
                           alt="price"
-                          className="absolute mx-[10px] h-[20px] w-[20px]"
+                          className="absolute z-30 ml-4 h-[10px] w-[12px]"
                         />
                         <Input
-                          disabled
-                          className="relative border border-white bg-stone-800 pl-[40px] placeholder-white focus-visible:ring-0 focus-visible:ring-offset-0 "
+                          className="relative border border-[#6d6d6d] bg-stone-800 pl-8 focus-visible:ring-0 focus-visible:ring-offset-0 "
                           placeholder="85"
                           {...field}
                         />
@@ -133,10 +127,10 @@ export const BuyCardModal = () => {
               />
               <FormField
                 control={form.control}
-                name="type"
+                name="date"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-sans font-extralight text-stone-500">
+                    <FormLabel className="font-extralight text-stone-500">
                       Expiration Date
                     </FormLabel>
                     <Select
@@ -144,22 +138,29 @@ export const BuyCardModal = () => {
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
-                      <FormControl className="text-white">
+                      <FormControl>
                         <div className="relative flex items-center">
-                          <CalendarIcon className="absolute ml-[10px] text-white" />
+                          <CalendarIcon
+                            className="absolute z-30 ml-4"
+                            color="#6d6d6d"
+                            size={16}
+                          />
                           <SelectTrigger className="relative border-0 bg-neutral-900 capitalize text-white outline-none ring-offset-0 focus:ring-0 focus:ring-offset-0">
-                            <SelectValue placeholder="Select a expiration date" />
+                            <SelectValue
+                              placeholder="Select a expiration date"
+                              className="relative z-30 text-white"
+                            />
                           </SelectTrigger>
                         </div>
                       </FormControl>
                       <SelectContent>
-                        {expirationDates.map((type) => (
+                        {expirationDates.map((date) => (
                           <SelectItem
-                            key={type.value}
-                            value={type.value}
+                            key={date.key}
+                            value={date.value}
                             className="capitalize text-white"
                           >
-                            {type.value}
+                            {date.key}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -168,27 +169,25 @@ export const BuyCardModal = () => {
                   </FormItem>
                 )}
               />
-              <Button
-                variant="primary"
+              <button
                 disabled={isLoading}
-                className="my-[30px] w-full bg-cyan-400 text-black"
-                onClick={() => onOpen('confirm')}
+                className="w-full rounded-xl bg-[#50FFFF] py-2 font-bold text-black hover:bg-opacity-80"
+                onClick={handleClose}
               >
                 Confirm the offer
-              </Button>
+              </button>
             </div>
           </form>
         </Form>
-        <DialogFooter className="h-[30px]"></DialogFooter>
       </DialogContent>
     </Dialog>
   )
 }
 
 const expirationDates = [
-  { value: '30 days' },
-  { value: '3 months' },
-  { value: '6 months' },
-  { value: '1 year' },
-  { value: 'forever' },
+  { key: '30 days', value: '30' },
+  { key: '3 months', value: '90' },
+  { key: '6 months', value: '180' },
+  { key: '1 year', value: '365' },
+  { key: 'Forever', value: 'all' },
 ]

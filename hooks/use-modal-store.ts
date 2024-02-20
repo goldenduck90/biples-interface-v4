@@ -13,8 +13,8 @@ export type ModalType =
   | 'editChannel'
   | 'messageFile'
   | 'deleteMessage'
-  | 'buyCard'
-  | 'confirm'
+  | 'confirmOffer'
+  | 'buyNft'
 
 interface ModalData {
   server?: Server
@@ -22,6 +22,7 @@ interface ModalData {
   channelType?: ChannelType
   apiUrl?: string
   query?: Record<string, any>
+  price?: number
 }
 
 interface ModalStore {

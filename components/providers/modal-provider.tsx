@@ -14,8 +14,8 @@ import { LeaveServerModal } from '@/components/modals/leave-server-modal'
 import { MembersModal } from '@/components/modals/members-modal'
 import { MessageFileModal } from '@/components/modals/message-file-modal'
 
-import { BuyCardModal } from '../modals/buy-card-modal'
-import { Confirm } from '../modals/confirm'
+import { BuyNftModal } from '../modals/buy-nft-modal'
+import { ConfirmOfferModal } from '../modals/confirm-offer-modal'
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false)
@@ -41,8 +41,8 @@ export const ModalProvider = () => {
       <EditChannelModal />
       <MessageFileModal />
       <DeleteMessageModal />
-      <BuyCardModal />
-      <Confirm />
+      <ConfirmOfferModal />
+      <BuyNftModal />
     </>
   )
 }
