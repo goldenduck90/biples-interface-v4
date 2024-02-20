@@ -1,5 +1,5 @@
 import { ChannelType, MemberRole } from '@prisma/client'
-import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import { redirect } from 'next/navigation'
 
 import { ChatHeader } from '@/components/chat/chat-header'
@@ -8,13 +8,12 @@ import { ChatMessages } from '@/components/chat/chat-messages'
 import { MediaRoom } from '@/components/media-room'
 import { NavigationSidebar } from '@/components/navigation/navigation-sidebar'
 import { NavigationMarketSidebar } from '@/components/navigation/navigation-sidebar-market'
-import { ServerHeader } from '@/components/server/server-header'
-import { ServerRightRooms } from '@/components/server/servers-right-rooms'
+import { ServerMarketplaceHeader } from '@/components/server/server-marketplace-header'
+import LastSold from '@/components/server/server-marketplace-lastsold'
+import Trending from '@/components/server/server-marketplace-trending'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { currentProfile } from '@/lib/current-profile'
 import prisma from '@/lib/prisma'
-
-import LastSold from './ServerMarketplace/lastSold'
-import Trending from './ServerMarketplace/trending'
 
 interface ChannelIdPageProps {
   params: {
@@ -54,11 +53,17 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
     console.log(newMessage)
   }
 
+  const DynamicComponentWithNoSSR = dynamic(
+    () => import('@/components/top-header-wallet-icons'),
+    { ssr: false },
+  )
+
   return (
     <div className="flex h-full flex-col gap-5">
+      <DynamicComponentWithNoSSR />
       {channel.type === ChannelType.TEXT && channel.name !== 'Marketplace' && (
         <>
-          <div className="z-30 flex h-fit w-full flex-col rounded-[25px] border bg-white/5 ">
+          <div className="z-30 flex h-fit w-full rounded-[25px] bg-white/5">
             <NavigationSidebar />
           </div>
           <div className="flex h-full flex-col rounded-[25px] bg-white/5">
@@ -110,18 +115,26 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
         </>
       )}
       {channel.name === 'Marketplace' && (
-        <div>
-          <div className="z-30 mb-5 flex w-full flex-col rounded-[25px] border border-[#283643] bg-white/5">
+        <>
+          <div className="z-30 flex h-fit w-full rounded-[25px] bg-white/5">
             <NavigationMarketSidebar />
           </div>
-          <div className="h-[790px] w-full flex-col overflow-y-auto rounded-[25px] border bg-white/5 p-5">
-            <MarketSidebar serverId={channel.serverId} />
-            {/*  */}
-            <LastSold />
-            {/* Trending */}
-            <Trending />
+          <div className="flex h-full flex-col rounded-[25px] bg-white/5 px-3 py-2">
+            <ServerMarketplaceHeader serverId={channel.serverId} />
+            <div className="flex max-h-[calc(100vh-18rem)] flex-1 flex-col">
+              <ScrollArea type="auto">
+                {/*  */}
+                <LastSold />
+                {/* Trending */}
+                <Trending />
+                <ScrollBar
+                  orientation="vertical"
+                  className="rounded bg-white/10"
+                />
+              </ScrollArea>
+            </div>
           </div>
-        </div>
+        </>
       )}
       {channel.type === ChannelType.AUDIO && (
         <MediaRoom chatId={channel.id} video={false} audio={true} />
@@ -134,132 +147,3 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
 }
 
 export default ChannelIdPage
-
-interface ServerSidebarProps {
-  serverId: string
-}
-
-const iconMap = {
-  [ChannelType.TEXT]: <Hash className="mr-2 h-4 w-4" />,
-  [ChannelType.AUDIO]: <Mic className="mr-2 h-4 w-4" />,
-  [ChannelType.VIDEO]: <Video className="mr-2 h-4 w-4" />,
-}
-
-const roleIconMap = {
-  [MemberRole.GUEST]: null,
-  [MemberRole.MODERATOR]: (
-    <ShieldCheck className="mr-2 h-4 w-4 text-indigo-500" />
-  ),
-  [MemberRole.ADMIN]: <ShieldAlert className="mr-2 h-4 w-4 text-rose-500" />,
-}
-
-const MarketSidebar = async ({ serverId }: ServerSidebarProps) => {
-  const profile = await currentProfile()
-
-  if (!profile) {
-    return redirect('/')
-  }
-
-  const server = await prisma.server.findUnique({
-    where: {
-      id: serverId,
-    },
-    include: {
-      channels: {
-        orderBy: {
-          createdAt: 'asc',
-        },
-      },
-      members: {
-        include: {
-          profile: true,
-        },
-        orderBy: {
-          role: 'asc',
-        },
-      },
-    },
-  })
-
-  const textChannels = server?.channels.filter(
-    (channel) => channel.type === ChannelType.TEXT,
-  )
-  const audioChannels = server?.channels.filter(
-    (channel) => channel.type === ChannelType.AUDIO,
-  )
-  const videoChannels = server?.channels.filter(
-    (channel) => channel.type === ChannelType.VIDEO,
-  )
-  const members = server?.members.filter(
-    (member) => member.profileId !== profile.id,
-  )
-
-  if (!server) {
-    return redirect('/')
-  }
-
-  const role = server.members.find(
-    (member) => member.profileId === profile.id,
-  )?.role
-
-  return (
-    <div className="left-0 right-0 z-20 flex h-[80px] w-full items-center rounded-t-2xl px-5  pt-2 text-primary">
-      <div className="flex w-4/6  items-center gap-5">
-        <div className="flex w-1/5">
-          <ServerHeader server={server} role={role} />
-        </div>
-        <div className=" invisible w-full items-center justify-center rounded-[15px] border border-[#283643] p-2 lg:visible lg:flex lg:flex-row ">
-          {properties.map((prop, index) => (
-            <div key={index} className="flex w-1/5  gap-x-px">
-              {prop.flag && (
-                <img className="mt-0.5 h-4 w-4" src="/images/market/Mark.svg" />
-              )}
-              <span>
-                <h5>{prop.val}</h5>
-                <p className="text-[13px] text-stone-500">{prop.mval}</p>
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="flex w-2/6 flex-row-reverse">
-        <ServerRightRooms
-          server={server}
-          role={role}
-          members={members}
-          videoChannels={videoChannels}
-          textChannels={textChannels}
-          audioChannels={audioChannels}
-        />
-      </div>
-    </div>
-  )
-}
-
-const properties = [
-  {
-    flag: true,
-    val: '200k',
-    mval: 'Total volume',
-  },
-  {
-    flag: true,
-    val: '22.5k',
-    mval: 'Best offer',
-  },
-  {
-    flag: true,
-    val: '334.1',
-    mval: 'Floor price',
-  },
-  {
-    flag: false,
-    val: '2%',
-    mval: 'Listed',
-  },
-  {
-    flag: false,
-    val: '4k',
-    mval: 'Owners',
-  },
-]

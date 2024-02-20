@@ -60,7 +60,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
     <div className="relative flex items-center gap-10">
       <button
         onClick={toggleOpen}
-        className="server-card flex items-center justify-center gap-2 px-4 py-2 font-normal transition"
+        className="server-card flex items-center justify-center gap-2 border-none px-4 py-2 font-normal transition"
       >
         <img
           src={server.imageUrl}

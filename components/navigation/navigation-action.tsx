@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useModal } from '@/hooks/use-modal-store'
+
 export const NavigationAction = () => {
   const { onOpen } = useModal()
 

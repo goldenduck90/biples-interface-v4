@@ -1,20 +1,39 @@
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+
 export const NavigationMarketSidebar = async () => {
   return (
     <div className="flex h-full w-full items-center justify-between p-3 text-primary">
-      <div className="invisible justify-start lg:visible lg:ml-4 lg:flex lg:gap-4">
-        {dropDown.map((item, index) => (
-          <select
-            key={index}
-            data-te-select-init
-            className="flex cursor-pointer items-center justify-center gap-3 rounded-[15px] border bg-white/5 p-2 dark:border-cyan-950"
-          >
-            <option value="1">{item.title}</option>
-          </select>
+      <div className="flex gap-2">
+        {characteristics.map((characteristic, index) => (
+          <Select key={index}>
+            <div className="relative flex items-center">
+              <SelectTrigger className="relative rounded-[15px] border border-[#53acff28] bg-white/5 pl-4 capitalize text-white outline-none ring-offset-0 focus:ring-0 focus:ring-offset-0">
+                <SelectValue placeholder={characteristic.title} />
+              </SelectTrigger>
+            </div>
+            <SelectContent>
+              {characteristic.items.map((item) => (
+                <SelectItem
+                  key={item}
+                  value={item}
+                  className="capitalize text-white"
+                >
+                  {item}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         ))}
       </div>
-      <div className="flex w-full cursor-pointer items-center hover:opacity-80 lg:hidden xl:flex xl:w-[20%] xl:items-center">
+      <div className="flex w-[275px] cursor-pointer items-center hover:opacity-80">
         <input
-          className="relative h-[46px] w-full rounded-[15px] border bg-[#101010F7] p-3 pl-10 focus:border-sky-700"
+          className="relative h-[46px] w-full rounded-[15px] border bg-[#101010F7] p-3 pl-10"
           placeholder="Search"
         />
         <img
@@ -27,10 +46,10 @@ export const NavigationMarketSidebar = async () => {
   )
 }
 
-const dropDown = [
-  { title: 'Background' },
-  { title: 'Body' },
-  { title: 'Face' },
-  { title: 'Hair' },
-  { title: 'Piercing' },
+const characteristics = [
+  { title: 'Background', items: ['Background', 'Black', 'White', 'Pink'] },
+  { title: 'Body', items: ['Body', 'Big', 'Medium', 'Small'] },
+  { title: 'Face', items: ['Face', 'Ugly', 'Handsome'] },
+  { title: 'Hair', items: ['Hair', 'Straight', 'Curl'] },
+  { title: 'Piercing', items: ['Piercing', 'Ring', 'Diamond'] },
 ]

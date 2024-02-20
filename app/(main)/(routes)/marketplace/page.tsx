@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 
-import { NavigationMarketPlaceSidebar } from '@/components/navigation/navigation-sidebar-maketplace'
+import { NavigationMarketPlaceSidebar } from '@/components/navigation/navigation-sidebar-marketplace'
 
 import MarketCollect from './pagination/marketCollect'
 import Trending from './pagination/marketTrending'
