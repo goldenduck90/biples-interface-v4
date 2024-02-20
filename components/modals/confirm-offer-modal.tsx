@@ -136,7 +136,7 @@ export const ConfirmOfferModal = () => {
                     <Select
                       disabled={isLoading}
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      // defaultValue={field.value}
                     >
                       <FormControl>
                         <div className="relative flex items-center">
@@ -145,22 +145,19 @@ export const ConfirmOfferModal = () => {
                             color="#6d6d6d"
                             size={16}
                           />
-                          <SelectTrigger className="relative border-0 bg-neutral-900 capitalize text-white outline-none ring-offset-0 focus:ring-0 focus:ring-offset-0">
-                            <SelectValue
-                              placeholder="Select a expiration date"
-                              className="relative z-30 text-white"
-                            />
+                          <SelectTrigger className="relative z-20 border-0 bg-neutral-900 text-white outline-none ring-offset-0 focus:ring-0 focus:ring-offset-0">
+                            <SelectValue placeholder="Select an expiration date" />
                           </SelectTrigger>
                         </div>
                       </FormControl>
                       <SelectContent>
                         {expirationDates.map((date) => (
                           <SelectItem
-                            key={date.key}
+                            key={date.value}
                             value={date.value}
                             className="capitalize text-white"
                           >
-                            {date.key}
+                            {date.value}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -185,9 +182,9 @@ export const ConfirmOfferModal = () => {
 }
 
 const expirationDates = [
-  { key: '30 days', value: '30' },
-  { key: '3 months', value: '90' },
-  { key: '6 months', value: '180' },
-  { key: '1 year', value: '365' },
-  { key: 'Forever', value: 'all' },
+  { value: '30 Days' },
+  { value: '3 Months' },
+  { value: '6 Months' },
+  { value: '1 Year' },
+  { value: 'Forever' },
 ]
