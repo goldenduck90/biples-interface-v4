@@ -1,11 +1,10 @@
 import dynamic from 'next/dynamic'
 import { redirect } from 'next/navigation'
 
-import { NavigationMarketSidebar } from '@/components/navigation/navigation-sidebar-market'
+import { MarketplaceCharacteristicHeader } from '@/components/navigation/navigation-marketplace-characteristic'
+import { BackBtn } from '@/components/server/server-marketplace-back'
 import { currentProfile } from '@/lib/current-profile'
 import prisma from '@/lib/prisma'
-
-import { BackBtn } from './Backbtn'
 
 const ServerIdLayout = async ({
   children,
@@ -48,8 +47,8 @@ const ServerIdLayout = async ({
           <DynamicComponentWithNoSSR />
         </div>
       </div>
-      <div className="z-30 mb-5 flex h-fit w-full flex-col rounded-[25px] border border-[#283643] bg-white/5">
-        <NavigationMarketSidebar />
+      <div className="z-30 mb-5 flex h-fit w-full flex-col rounded-[25px] bg-white/5">
+        <MarketplaceCharacteristicHeader />
       </div>
       <main className="h-full rounded-[25px]">{children}</main>
     </div>

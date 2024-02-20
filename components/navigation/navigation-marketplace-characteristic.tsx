@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
-export const NavigationMarketSidebar = async () => {
+export const MarketplaceCharacteristicHeader = async () => {
   return (
     <div className="flex h-full w-full items-center justify-between p-3 text-primary">
       <div className="flex gap-2">

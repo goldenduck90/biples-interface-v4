@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils'
 
 interface NftCardProps {
   imageURL: string
-  followers: string
+  id: string
   avatar: string
   userName: string
   nameFollow: string
@@ -20,7 +20,7 @@ interface NftCardProps {
 
 export const NftCard = ({
   imageURL,
-  followers,
+  id,
   avatar,
   userName,
   nameFollow,
@@ -31,7 +31,7 @@ export const NftCard = ({
   const router = useRouter()
   const pathName = usePathname()
   const handleClick = (_e: any) => {
-    router.push(`${pathName}/overview`)
+    router.push(`${pathName}/nfts/${id}`)
   }
 
   const handleConfirmOffer = () => {
@@ -71,7 +71,7 @@ export const NftCard = ({
         <div className="flex items-center justify-between gap-2">
           <p className="text-xl">{userName}</p>
           <div className="rounded-full bg-[#10101041] px-2 pt-1 text-xs">
-            {followers}
+            {'#' + id}
           </div>
         </div>
         <p className="text-xs text-[#6d6d6d]">{nameFollow}</p>

@@ -5,7 +5,7 @@ import { NftCard } from './server-marketplace-nftcard'
 const cards = [
   {
     imageURL: '/images/server/marketplace/image (11).png',
-    followers: '#2341',
+    id: '2346',
     avatar: '/images/market/Mark.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
@@ -14,7 +14,7 @@ const cards = [
   },
   {
     imageURL: '/images/server/marketplace/image (12).png',
-    followers: '#2341',
+    id: '2347',
     avatar: '/images/market/Mark.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
@@ -23,7 +23,7 @@ const cards = [
   },
   {
     imageURL: '/images/server/marketplace/image (13).png',
-    followers: '#2341',
+    id: '2348',
     avatar: '/images/market/Mark.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
@@ -32,7 +32,7 @@ const cards = [
   },
   {
     imageURL: '/images/server/marketplace/image (14).png',
-    followers: '#2341',
+    id: '2349',
     avatar: '/images/market/Mark.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
@@ -55,7 +55,7 @@ export default function Trending() {
           <NftCard
             key={index}
             imageURL={item.imageURL}
-            followers={item.followers}
+            id={item.id}
             avatar={item.avatar}
             userName={item.userName}
             nameFollow={item.nameFollow}

@@ -8,7 +8,7 @@ import { NftCard } from './server-marketplace-nftcard'
 const cards = [
   {
     imageURL: '/images/server/marketplace/image (7).png',
-    followers: '#2341',
+    id: '2341',
     avatar: '/images/market/Mark.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
@@ -17,7 +17,7 @@ const cards = [
   },
   {
     imageURL: '/images/server/marketplace/image (8).png',
-    followers: '#2341',
+    id: '2342',
     avatar: '/images/market/Mark.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
@@ -26,7 +26,7 @@ const cards = [
   },
   {
     imageURL: '/images/server/marketplace/image (9).png',
-    followers: '#2341',
+    id: '2343',
     avatar: '/images/market/Mark.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
@@ -35,7 +35,7 @@ const cards = [
   },
   {
     imageURL: '/images/server/marketplace/image (10).png',
-    followers: '#2341',
+    id: '2344',
     avatar: '/images/market/Mark.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
@@ -63,7 +63,7 @@ const LastSold = () => {
           <NftCard
             key={index}
             imageURL={item.imageURL}
-            followers={item.followers}
+            id={item.id}
             avatar={item.avatar}
             userName={item.userName}
             nameFollow={item.nameFollow}

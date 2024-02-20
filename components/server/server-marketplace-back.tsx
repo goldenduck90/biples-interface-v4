@@ -12,7 +12,7 @@ export const BackBtn = () => {
   }
 
   return (
-    <div className="icon-box flex h-[50px] w-[50px] cursor-pointer items-center justify-center transition-all delay-100 hover:animate-ping hover:opacity-80">
+    <div className="icon-box flex h-[50px] w-[50px] cursor-pointer items-center justify-center hover:opacity-80">
       <MdArrowBack onClick={handleClick} />
     </div>
   )

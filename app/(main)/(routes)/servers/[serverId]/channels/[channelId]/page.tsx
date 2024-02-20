@@ -6,8 +6,8 @@ import { ChatHeader } from '@/components/chat/chat-header'
 import { ChatInput } from '@/components/chat/chat-input'
 import { ChatMessages } from '@/components/chat/chat-messages'
 import { MediaRoom } from '@/components/media-room'
+import { MarketplaceCharacteristicHeader } from '@/components/navigation/navigation-marketplace-characteristic'
 import { NavigationSidebar } from '@/components/navigation/navigation-sidebar'
-import { NavigationMarketSidebar } from '@/components/navigation/navigation-sidebar-market'
 import { ServerMarketplaceHeader } from '@/components/server/server-marketplace-header'
 import LastSold from '@/components/server/server-marketplace-lastsold'
 import Trending from '@/components/server/server-marketplace-trending'
@@ -117,7 +117,7 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
       {channel.name === 'Marketplace' && (
         <>
           <div className="z-30 flex h-fit w-full rounded-[25px] bg-white/5">
-            <NavigationMarketSidebar />
+            <MarketplaceCharacteristicHeader />
           </div>
           <div className="flex h-full flex-col rounded-[25px] bg-white/5 px-3 py-2">
             <ServerMarketplaceHeader serverId={channel.serverId} />
