@@ -37,7 +37,7 @@ export const MarketplaceCharacteristicHeader = async () => {
           placeholder="Search"
         />
         <img
-          src="/images/market/Vector.svg"
+          src="/images/server/marketplace/search.svg"
           alt="Search"
           className="absolute ml-5 h-4 w-4"
         />

@@ -66,7 +66,7 @@ function OfferItem({ offer }: { offer: Offer }) {
           <div className="flex h-[20px] w-6/12 items-center justify-center gap-1 rounded-3xl  bg-white/5">
             <img
               className="h-2 w-2"
-              src="/images/market/Arrow-up.svg"
+              src="/images/server/marketplace/arrow-up.svg"
               alt="increase"
             />
             <p className="text-sm text-[#77FF8D]">{offer.floorDiff}</p>
@@ -78,7 +78,7 @@ function OfferItem({ offer }: { offer: Offer }) {
           <div className="flex h-[20px] w-6/12 items-center justify-center gap-1 rounded-3xl  bg-white/5">
             <img
               className="h-2 w-2"
-              src="/images/market/Arrow-down.svg"
+              src="/images/server/marketplace/arrow-down.svg"
               alt="decrease"
             />
             <p className="text-sm text-[#FF5C5C]">{offer.floorDiff}</p>

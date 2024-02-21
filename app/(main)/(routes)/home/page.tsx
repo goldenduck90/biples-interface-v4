@@ -25,7 +25,7 @@ const MyNFTsPage: React.FC = () => {
               placeholder="Search community"
             />
             <img
-              src="/images/market/Vector.svg"
+              src="/images/server/marketplace/search.svg"
               alt="Search"
               className="absolute ml-[15px] h-5 w-5 cursor-pointer"
             />

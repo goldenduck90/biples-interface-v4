@@ -113,7 +113,10 @@ export const ServerMarketplaceHeader = async ({
           {properties.map((prop, index) => (
             <div key={index} className="flex flex-row gap-1">
               {prop.flag && (
-                <img className="mt-0.5 h-4 w-4" src="/images/market/Mark.svg" />
+                <img
+                  className="mt-0.5 h-4 w-4"
+                  src="/images/server/marketplace/sol-blue.svg"
+                />
               )}
               <span>
                 <h5>{prop.value}</h5>

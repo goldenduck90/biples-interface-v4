@@ -9,7 +9,7 @@ const cards = [
   {
     imageURL: '/images/server/marketplace/image (7).png',
     id: '2341',
-    avatar: '/images/market/Mark.svg',
+    avatar: '/images/server/marketplace/sol-blue.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
     val: 225.31,
@@ -18,7 +18,7 @@ const cards = [
   {
     imageURL: '/images/server/marketplace/image (8).png',
     id: '2342',
-    avatar: '/images/market/Mark.svg',
+    avatar: '/images/server/marketplace/sol-blue.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
     val: 225.31,
@@ -27,7 +27,7 @@ const cards = [
   {
     imageURL: '/images/server/marketplace/image (9).png',
     id: '2343',
-    avatar: '/images/market/Mark.svg',
+    avatar: '/images/server/marketplace/sol-blue.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
     val: 225.31,
@@ -36,7 +36,7 @@ const cards = [
   {
     imageURL: '/images/server/marketplace/image (10).png',
     id: '2344',
-    avatar: '/images/market/Mark.svg',
+    avatar: '/images/server/marketplace/sol-blue.svg',
     userName: 'Claynosaurz',
     nameFollow: '@claynosaurz',
     val: 225.31,
