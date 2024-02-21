@@ -1,65 +1,80 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
-import { NftCard } from './server-marketplace-nftcard'
+import { cn } from '@/lib/utils'
+import mockNfts from '@/mock/server/marketplace/community-nfts.json'
 
+import { NftCard } from './server-marketplace-nftcard'
 // Data
-const cards = [
-  {
-    imageURL: '/images/server/marketplace/image (7).png',
-    id: '2341',
-    avatar: '/images/server/marketplace/sol-blue.svg',
-    userName: 'Claynosaurz',
-    nameFollow: '@claynosaurz',
-    val: 225.31,
-    state: 1,
-  },
-  {
-    imageURL: '/images/server/marketplace/image (8).png',
-    id: '2342',
-    avatar: '/images/server/marketplace/sol-blue.svg',
-    userName: 'Claynosaurz',
-    nameFollow: '@claynosaurz',
-    val: 225.31,
-    state: 2,
-  },
-  {
-    imageURL: '/images/server/marketplace/image (9).png',
-    id: '2343',
-    avatar: '/images/server/marketplace/sol-blue.svg',
-    userName: 'Claynosaurz',
-    nameFollow: '@claynosaurz',
-    val: 225.31,
-    state: 0,
-  },
-  {
-    imageURL: '/images/server/marketplace/image (10).png',
-    id: '2344',
-    avatar: '/images/server/marketplace/sol-blue.svg',
-    userName: 'Claynosaurz',
-    nameFollow: '@claynosaurz',
-    val: 225.31,
-    state: 1,
-  },
-]
 
 const LastSold = () => {
+  const [itemsPerPage, setItemsPerPage] = useState(4)
+  const [currentPage, setCurrentPage] = useState(1)
+
+  useEffect(() => {
+    const calculateItemsPerPage = () => {
+      // Logic to calculate itemsPerPage based on screen width
+      // Adjust based on your requirements
+      const screenWidth = window.innerWidth
+      const cardWidth = 250 // Specify the width of each card in pixels
+      const calculatedItemsPerPage = Math.floor((screenWidth - 250) / cardWidth)
+      setItemsPerPage(calculatedItemsPerPage > 0 ? calculatedItemsPerPage : 4)
+    }
+
+    calculateItemsPerPage()
+    window.addEventListener('resize', calculateItemsPerPage)
+
+    return () => {
+      window.removeEventListener('resize', calculateItemsPerPage)
+    }
+  }, [])
+
+  const totalCards = mockNfts.length
+  const totalPages = Math.ceil(totalCards / itemsPerPage)
+
+  const paginatedCards = mockNfts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  )
+
+  const next = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))
+  }
+
+  const prev = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
+  }
   return (
     <div className="px-4 py-8">
       <div className="flex flex-row items-center justify-between">
         <div className="text-2xl">Last Sold</div>
         <div className="flex flex-row gap-4">
-          <div className="cursor-pointer text-white transition-all delay-100 hover:opacity-80">
+          <button
+            disabled={currentPage === 1}
+            className={cn(
+              'cursor-pointer text-white transition-all delay-100 hover:opacity-80',
+              currentPage !== 1 && 'text-[#50FFFF]',
+            )}
+            onClick={prev}
+          >
             <FaArrowLeft />
-          </div>
-          <div className="cursor-pointer text-[#50FFFF] transition-all delay-100 hover:opacity-80">
+          </button>
+          <button
+            disabled={currentPage === totalPages}
+            className={cn(
+              'cursor-pointer text-white transition-all delay-100 hover:opacity-80',
+              currentPage !== totalPages && 'text-[#50FFFF]',
+            )}
+            onClick={next}
+          >
             <FaArrowRight />
-          </div>
+          </button>
         </div>
       </div>
       <div className="mt-4 flex flex-row items-center justify-between">
-        {cards.map((item, index) => (
+        {paginatedCards.map((item, index) => (
           <NftCard
             key={index}
             imageURL={item.imageURL}
