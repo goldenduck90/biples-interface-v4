@@ -29,7 +29,7 @@ export default function NextButton({ moveNext, isDisabled }: Props) {
           <line x1="13" y1="6" x2="19" y2="12" />
         </svg>
 
-        <span className="sr-only">Prev</span>
+        <span className="sr-only">Next</span>
       </button>
     </div>
   )

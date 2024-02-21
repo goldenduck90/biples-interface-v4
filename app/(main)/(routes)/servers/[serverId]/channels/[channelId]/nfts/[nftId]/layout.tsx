@@ -40,17 +40,17 @@ const ServerIdLayout = async ({
   )
 
   return (
-    <div className="mx-auto flex h-full w-full flex-col gap-5 rounded-[25px] bg-[#111214]">
+    <div className="mx-auto flex h-full w-full flex-col gap-5 rounded-3xl bg-[#111214]">
       <div className="flex items-center justify-between gap-3">
         <BackBtn />
         <div className="w-full">
           <DynamicComponentWithNoSSR />
         </div>
       </div>
-      <div className="z-30 mb-5 flex h-fit w-full flex-col rounded-[25px] bg-white/5">
+      <div className="z-30 mb-5 flex h-fit w-full flex-col rounded-3xl bg-white/5">
         <MarketplaceCharacteristicHeader />
       </div>
-      <main className="h-full rounded-[25px]">{children}</main>
+      <main className="h-full rounded-3xl">{children}</main>
     </div>
   )
 }

@@ -19,7 +19,7 @@ const NftIdPage: React.FC = () => {
       <div className="flex max-h-[calc(100vh-18rem)] flex-col">
         <ScrollArea type="auto">
           <NftDetailSummary />
-          <div>
+          <>
             <DetailTab currentTab={tabIndex} onChange={setTabIndex} />
             {/* footer_body */}
             {tabIndex === 'overview' && (
@@ -45,7 +45,7 @@ const NftIdPage: React.FC = () => {
             {tabIndex === 'activity' && (
               <Activity activities={mockActivities} />
             )}
-          </div>
+          </>
 
           <ScrollBar orientation="vertical" className="rounded bg-white/10" />
         </ScrollArea>

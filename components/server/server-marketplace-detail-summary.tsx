@@ -1,15 +1,18 @@
 'use client'
 
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 export default function NftDetailSummary() {
   return (
     <div className="flex w-full gap-8 pr-4 pt-8">
-      <img
-        src="/images/server/marketplace/nft-detail.png"
-        className="h-[450px] w-[450px]"
-      />
-      <div className="flex w-full flex-col">
+      <div className="flex w-1/2 justify-center">
+        <img
+          src="/images/server/marketplace/nft-detail.png"
+          className="h-[450px] w-[450px]"
+        />
+      </div>
+      <div className="flex w-1/2 flex-col">
         <div className="flex flex-row items-center gap-1">
           <img
             src="/images/server/marketplace/nft-detail-avatar.png"
@@ -83,14 +86,18 @@ export default function NftDetailSummary() {
           <button className="h-[55px] w-full rounded-2xl bg-[#50FFFF] text-center text-2xl font-medium text-black hover:animate-pulse">
             Buy now
           </button>
-          <div className="flex min-h-[55px] min-w-[55px] cursor-pointer items-center justify-center rounded-[10px] bg-white/5 hover:animate-bounce">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            className="flex min-h-[55px] min-w-[55px] cursor-pointer items-center justify-center rounded-[10px] bg-white/5"
+          >
             <Image
               alt="auction icon"
               src="/images/server/marketplace/auction-white.svg"
               width={30}
               height={25}
             />
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
