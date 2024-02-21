@@ -106,7 +106,7 @@ export const NftCard = ({
       {state === 2 && (
         <div className="mb-1 flex items-center justify-between gap-2">
           <button
-            className="w-full rounded-[10px] bg-[#50FFFF] py-1 text-xl text-black hover:animate-pulse"
+            className="w-full rounded-[10px] bg-[#50FFFF] py-1 text-base font-medium text-black hover:animate-pulse"
             onClick={handleBuyNft}
           >
             Buy now
